@@ -1,0 +1,41 @@
+Package: rstickleback
+Title: Automated Behavioral Event Detection in Bio-logger Data
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Max",
+           family = "Czapanskiy",
+           role = c("aut", "cre"),
+           email = "maxczapanskiy@gmail.com",
+           comment = c("ORCID-ID" = "0000-0002-6302-905X"))
+Description: Stickleback is a machine-learning pipeline for using time
+    series classification algorithms to detect fine-scale behavioral
+    events in longitudinal bio-logging data. rstickleback is an R
+    interface for using the Stickleback Python package.
+License: MIT + file LICENSE
+Imports: 
+    dplyr,
+    lubridate,
+    magrittr,
+    purrr,
+    reticulate
+Config/reticulate: list( packages = list( list(package = "stickleback",
+    version = "0.1.1", pip = TRUE) ) )
+Encoding: UTF-8
+Language: es
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
+Collate: 
+    'generics.R'
+    'Events.R'
+    'Sensors.R'
+    'Stickleback.R'
+    'data.R'
+    'init.R'
+    'plot.R'
+    'tsc.R'
+    'utils-pipe.R'
+Suggests: 
+    rmarkdown,
+    knitr
+VignetteBuilder: knitr

@@ -1,0 +1,60 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# `rstickleback`
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+> A machine learning pipeline for detecting fine-scale behavioral events in bio-logging data.
+
+## Installation
+
+You can install the development version of rstickleback from [GitHub](https://github.com/FlukeAndFeather/rstickleback) with:
+
+```{r install}
+# install.packages("devtools")
+devtools::install_github("FlukeAndFeather/rstickleback")
+```
+
+## Key concepts
+
+* Behavioral events are brief behaviors that can be represented as a point in time, e.g. feeding or social interactions.
+* High-resolution bio-logging data (e.g. from accelerometers and magnetometers) are multi-variate time series. Traditional classifiers struggle with time series data.
+* `stickleback` takes a time series classification approach to detect behavioral events in longitudinal bio-logging data.
+
+## Quick start
+
+### Load sample data
+
+The included sensor data contains the depth, pitch, roll, and speed of six blue whales at 10 Hz, and the event data contains the times of lunge-feeding behaviors.
+
+```{r load_data}
+lunge_data <- load_lunges()
+lunge_sensors <- lunge_data[[1]]
+lunge_events <- lunge_data[[2]]
+```
+
+### Visualize sensor and event data
+
+`sb_plot_data()` produces an interactive figure for exploring bio-logger data.
+
+```{r view_data, eval=FALSE}
+deployid <- deployments(lunge_sensors)[1]
+sb_plot_data(deployid, lunge_sensors, lunge_events)
+```
+
+![Animated loop of interactively exploring data with plot_sensors_events()](docs/resources/plot-sensors-events.gif)
+
