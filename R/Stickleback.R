@@ -63,27 +63,28 @@ Stickleback <- function(tsc, win_size, tol, nth = 1, n_folds = 4) {
       .stickleback = .stickleback)
 }
 
-#' @param sb Stickleback object.
-#' @param sensors Sensors object.
-#' @param events Events object.
+#' Fit a Stickleback model
 #'
-#' @rdname Stickleback
+#' @param sb [Stickleback]
+#' @param sensors [Sensors]
+#' @param events [Events]
+#'
 #' @export
-setMethod("fit",
-          c("Stickleback", "Sensors", "Events"),
-          function(sb, sensors, events) {
-            sb@.stickleback$fit(sensors@.data, events@.data)
-            NULL
-          })
+sb_fit <- function(sb, sensors, events) {
+  stopifnot(inherits(sb, "Stickleback"),
+            inherits(sensors, "Sensors"),
+            inherits(events, "Events"))
+  invisible(sb@.stickleback$fit(sensors@.data, events@.data))
+}
 
-#' @param sb Stickleback object.
-#' @param sensors Sensors object.
+#' Predict with a Stickleback model
 #'
-#' @rdname Stickleback
+#' @param sb [Stickleback]
+#' @param sensors [Sensors]
+#'
 #' @export
-setMethod("predict",
-          c("Stickleback", "Sensors"),
-          function(sb, sensors) {
-            sb@.stickleback$predict(sensors@.data)
-            NULL
-          })
+sb_predict <- function(sb, sensors) {
+  stopifnot(inherits(sb, "Stickleback"),
+            inherits(sensors, "Sensors"))
+  sb@.stickleback$predict(sensors@.data)
+}

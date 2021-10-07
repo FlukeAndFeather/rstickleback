@@ -4,15 +4,9 @@
 \name{Stickleback-class}
 \alias{Stickleback-class}
 \alias{Stickleback}
-\alias{fit,Stickleback,Sensors,Events-method}
-\alias{predict,Stickleback,Sensors-method}
 \title{Stickleback class}
 \usage{
 Stickleback(tsc, win_size, tol, nth = 1, n_folds = 4)
-
-\S4method{fit}{Stickleback,Sensors,Events}(sb, sensors, events)
-
-\S4method{predict}{Stickleback,Sensors}(sb, sensors)
 }
 \arguments{
 \item{tsc}{Python time series classifier. Must inherit sktime's BaseEstimator.}
@@ -24,12 +18,6 @@ Stickleback(tsc, win_size, tol, nth = 1, n_folds = 4)
 \item{nth}{integer. Sliding window step size.}
 
 \item{n_folds}{integer. Number of folds for global cross validation step.}
-
-\item{sb}{Stickleback object.}
-
-\item{sensors}{Sensors object.}
-
-\item{events}{Events object.}
 }
 \description{
 R wrapper class for the Python implementation of the Stickleback method, used

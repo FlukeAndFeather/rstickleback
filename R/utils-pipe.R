@@ -11,3 +11,12 @@
 #' @param rhs A function call using the magrittr semantics.
 #' @return The result of calling `rhs(lhs)`.
 NULL
+
+#' Multiple assignment operator
+#'
+#' See \code{zeallot::\link[zeallot:operator]{\%<-\%}} for details.
+#'
+#' @name %<-%
+#' @importFrom zeallot %<-%
+#' @export
+NULL

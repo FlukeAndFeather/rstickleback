@@ -54,3 +54,38 @@ setMethod("show", "Events", function(object) {
 setMethod("deployments", "Events", function(object) {
   names(object@.data)
 })
+
+#' Convert Events to data.frame
+#'
+#' @param x [Events]
+#'
+#' @return [data.frame]
+#' @exportS3Method base::as.data.frame
+as.data.frame.Events <- function(x, ...) {
+  eventsdf <- purrr::map(x@.data, "values") %>%
+    purrr::map2(names(.), ~ dplyr::tibble(datetime = .x, deployid = .y)) %>%
+    do.call(rbind, .)
+}
+
+#' Split events by deployment IDs
+#'
+#' Useful for test-train splitting.
+#'
+#' @param object [Events]
+#' @param ids Deployment IDs in one split
+#'
+#' @return a list of two Events objects. The first element contains the
+#'   deployments with IDs in ids, the second element contains the remainder.
+#' @export
+setMethod("split", "Events", function(object, ids) {
+  stopifnot(all(ids %in% deployments(object)))
+  eventsdf <- as.data.frame(object)
+  events1 <- eventsdf %>%
+    dplyr::filter(deployid %in% ids) %>%
+    Events("deployid", "datetime")
+  events2 <- eventsdf %>%
+    dplyr::filter(!deployid %in% ids) %>%
+    Events("deployid", "datetime")
+  list(events1, events2)
+})
+

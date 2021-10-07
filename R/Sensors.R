@@ -64,3 +64,44 @@ setMethod("deployments", "Sensors", function(object) {
 setMethod("columns", "Sensors", function(object) {
   object@.data[[1]]$columns$values
 })
+
+#' Convert Sensors to data.frame
+#'
+#' @param x [Sensors]
+#'
+#' @return [data.frame]
+#' @exportS3Method base::as.data.frame
+as.data.frame.Sensors <- function(x, ...) {
+  import_sensors <- function(df) {
+    result <- df %>%
+      .sbenv$util$datetimeindex_to_isoformat()
+    result$datetime <- lubridate::with_tz(result$datetime, "UTC")
+    result
+  }
+  purrr::map(x@.data, import_sensors) %>%
+    purrr::map2(names(.), ~ dplyr::mutate(.x, deployid = .y)) %>%
+    dplyr::bind_rows() %>%
+    dplyr::relocate(deployid)
+}
+
+#' Split sensors by deployment IDs
+#'
+#' Useful for test-train splitting.
+#'
+#' @param object [Sensors]
+#' @param ids Deployment IDs in one split
+#'
+#' @return a list of two Sensors objects. The first element contains the
+#'   deployments with IDs in ids, the second element contains the remainder.
+#' @export
+setMethod("split", "Sensors", function(object, ids) {
+  stopifnot(all(ids %in% deployments(object)))
+  sensorsdf <- as.data.frame(object)
+  sensors1 <- sensorsdf %>%
+    dplyr::filter(deployid %in% ids) %>%
+    Sensors("deployid", "datetime", columns(object))
+  sensors2 <- sensorsdf %>%
+    dplyr::filter(!deployid %in% ids) %>%
+    Sensors("deployid", "datetime", columns(object))
+  list(sensors1, sensors2)
+})
