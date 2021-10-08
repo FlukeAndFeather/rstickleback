@@ -67,25 +67,27 @@ as.data.frame.Events <- function(x, ...) {
     do.call(rbind, .)
 }
 
-#' Split events by deployment IDs
+#' Split objects by deployment IDs
 #'
 #' Useful for test-train splitting.
 #'
-#' @param object [Events]
-#' @param ids Deployment IDs in one split
+#' @param object [Sensors/Events]
+#' @param deployids Deployment IDs in one split
 #'
-#' @return a list of two Events objects. The first element contains the
-#'   deployments with IDs in ids, the second element contains the remainder.
-#' @export
-setMethod("split", "Events", function(object, ids) {
-  stopifnot(all(ids %in% deployments(object)))
+#' @return a list of two Sensors/Events objects. The first element contains the
+#'   deployments with IDs in deployids, the second element contains the
+#'   remainder.
+#'
+#' @rdname split
+#' @exportS3Method base::split
+split.Events <- function(object, deployids) {
+  stopifnot(all(deployids %in% deployments(object)))
   eventsdf <- as.data.frame(object)
   events1 <- eventsdf %>%
-    dplyr::filter(deployid %in% ids) %>%
+    dplyr::filter(deployid %in% deployids) %>%
     Events("deployid", "datetime")
   events2 <- eventsdf %>%
-    dplyr::filter(!deployid %in% ids) %>%
+    dplyr::filter(!deployid %in% deployids) %>%
     Events("deployid", "datetime")
   list(events1, events2)
-})
-
+}

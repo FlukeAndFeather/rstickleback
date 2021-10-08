@@ -84,24 +84,16 @@ as.data.frame.Sensors <- function(x, ...) {
     dplyr::relocate(deployid)
 }
 
-#' Split sensors by deployment IDs
-#'
-#' Useful for test-train splitting.
-#'
-#' @param object [Sensors]
-#' @param ids Deployment IDs in one split
-#'
-#' @return a list of two Sensors objects. The first element contains the
-#'   deployments with IDs in ids, the second element contains the remainder.
-#' @export
-setMethod("split", "Sensors", function(object, ids) {
-  stopifnot(all(ids %in% deployments(object)))
+#' @rdname split
+#' @exportS3Method base::split
+split.Sensors <- function(object, deployids) {
+  stopifnot(all(deployids %in% deployments(object)))
   sensorsdf <- as.data.frame(object)
   sensors1 <- sensorsdf %>%
-    dplyr::filter(deployid %in% ids) %>%
+    dplyr::filter(deployid %in% deployids) %>%
     Sensors("deployid", "datetime", columns(object))
   sensors2 <- sensorsdf %>%
-    dplyr::filter(!deployid %in% ids) %>%
+    dplyr::filter(!deployid %in% deployids) %>%
     Sensors("deployid", "datetime", columns(object))
   list(sensors1, sensors2)
-})
+}
