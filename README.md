@@ -76,9 +76,14 @@ and a 5 s window.
 ``` r
 tsc <- compose_tsc(module = "interval_based", 
                    algorithm = "SupervisedTimeSeriesForest",
-                   params = list(n_estimators = 2L),
+                   params = list(n_estimators = 2L, random_state = 4321L),
                    columns = columns(lunge_sensors))
-sb <- Stickleback(tsc, win_size = 50, tol = 5, nth = 10, n_folds = 4)
+sb <- Stickleback(tsc, 
+                  win_size = 50, 
+                  tol = 5, 
+                  nth = 10, 
+                  n_folds = 4, 
+                  seed = 1234)
 ```
 
 ### Fit model

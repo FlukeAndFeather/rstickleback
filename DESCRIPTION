@@ -20,7 +20,7 @@ Imports:
     reticulate,
     zeallot
 Config/reticulate: list( packages = list( list(package = "stickleback",
-    version = "0.1.1", pip = TRUE) ) )
+    version = "0.1.4", pip = TRUE) ) )
 Encoding: UTF-8
 Language: es
 LazyData: true

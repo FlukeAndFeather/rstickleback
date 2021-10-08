@@ -15,6 +15,7 @@ NULL
 #' @slot tol numeric. Prediction tolerance, in seconds.
 #' @slot nth integer. Sliding window step size.
 #' @slot n_folds integer. Number of folds for global cross validation step.
+#' @slot seed integer. Random number seed.
 #' @slot .stickleback Python Stickleback object.
 #'
 #' @rdname Stickleback
@@ -25,6 +26,7 @@ setClass(
             tol = "numeric",
             nth = "integer",
             n_folds = "integer",
+            seed = "integer",
             .stickleback = "ANY")
 )
 
@@ -33,10 +35,11 @@ setClass(
 #' @param tol numeric. Prediction tolerance, in seconds.
 #' @param nth integer. Sliding window step size.
 #' @param n_folds integer. Number of folds for global cross validation step.
+#' @slot seed integer. Random number seed.
 #'
 #' @rdname Stickleback
 #' @export
-Stickleback <- function(tsc, win_size, tol, nth = 1, n_folds = 4) {
+Stickleback <- function(tsc, win_size, tol, nth = 1, n_folds = 4, seed = NULL) {
   stopifnot(inherits(tsc, "sktime.base._base.BaseEstimator"),
             is.numeric(win_size), length(win_size) == 1,
             is.numeric(tol), length(tol) == 1,
@@ -44,14 +47,16 @@ Stickleback <- function(tsc, win_size, tol, nth = 1, n_folds = 4) {
             is.numeric(nth), length(nth) == 1,
             nth > 0, is.finite(nth), !is.na(nth), nth < win_size,
             is.numeric(nth), length(nth) == 1,
-            n_folds > 0, is.finite(n_folds), !is.na(n_folds))
+            n_folds > 0, is.finite(n_folds), !is.na(n_folds),
+            (is.null(seed) || (is.numeric(seed) && length(seed) == 1)))
 
   .stickleback <- .sbenv$sb$Stickleback(
     tsc,
     as.integer(win_size),
     .sbenv$util$timedelta(tol),
     as.integer(nth),
-    as.integer(n_folds)
+    as.integer(n_folds),
+    as.integer(seed)
   )
 
   new("Stickleback",

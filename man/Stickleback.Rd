@@ -6,7 +6,7 @@
 \alias{Stickleback}
 \title{Stickleback class}
 \usage{
-Stickleback(tsc, win_size, tol, nth = 1, n_folds = 4)
+Stickleback(tsc, win_size, tol, nth = 1, n_folds = 4, seed = NULL)
 }
 \arguments{
 \item{tsc}{Python time series classifier. Must inherit sktime's BaseEstimator.}
@@ -41,6 +41,10 @@ BaseEstimator.}
 
 \item{\code{n_folds}}{integer. Number of folds for global cross validation step.}
 
+\item{\code{seed}}{integer. Random number seed.}
+
 \item{\code{.stickleback}}{Python Stickleback object.}
+
+\item{\code{seed}}{integer. Random number seed.}
 }}
 
