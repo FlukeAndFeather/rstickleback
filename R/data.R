@@ -35,3 +35,55 @@ load_lunges <- function() {
   list(sensors = lunge_sensors,
        events = lunge_events)
 }
+
+#' Load a pre-fitted Stickleback model and associated data.
+#'
+#' For internal use only. See also fitted_model.R.
+#'
+#' @return List with elements:
+#'   * $stickleback [Stickleback] fitted Stickleback object
+#'   * $sensors_train [Sensors] sensor data used for training
+#'   * $events_train [Events] events data used for training
+#'   * $sensors_test [Sensors] sensor data used for testing
+#'   * $events_test [Events] events data used for testing
+#'   * $predictions [Predictions] predicted events
+#'   * $outcomes [Outcomes] prediction outcomes
+#' @noRd
+load_fitted <- function(data_loc) {
+  # Load pickled data
+  load_py <- function(pkl_name) {
+    reticulate::py_load_object(file.path(data_loc, pkl_name))
+  }
+  sb_py <- load_py("prefitted.pkl")
+  tsc_py <- load_py("prefitted_tsc.pkl")
+  sensors_train_py <- load_py("prefitted_trainX.pkl")
+  events_train_py <- load_py("prefitted_trainy.pkl")
+  sensors_test_py <- load_py("prefitted_testX.pkl")
+  events_test_py <- load_py("prefitted_testy.pkl")
+  predictions_py <- load_py("prefitted_pred.pkl")
+  outcomes_py <- load_py("prefitted_outcome.pkl")
+
+  # Convert to R S4 objects
+  sb <- new("Stickleback",
+            local_clf = tsc_py,
+            win_size = sb_py$win_size,
+            tol = sb_py$tol$total_seconds(),
+            .stickleback = sb_py)
+
+  new_instance <- function(class, data_obj) { new(class, .data = data_obj) }
+  sensors_train <- new_instance("Sensors", sensors_train_py)
+  events_train <- new_instance("Events", events_train_py)
+  sensors_test <- new_instance("Sensors", sensors_test_py)
+  events_test <- new_instance("Events", events_test_py)
+  predictions <- new_instance("Predictions", predictions_py)
+  outcomes <- new_instance("Outcomes", outcomes_py)
+
+  # Return
+  list(stickleback = sb,
+       sensors_train = sensors_train,
+       events_train = events_train,
+       sensors_test = sensors_test,
+       events_test = events_test,
+       predictions = predictions,
+       outcomes = outcomes)
+}
