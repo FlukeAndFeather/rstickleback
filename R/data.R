@@ -27,8 +27,6 @@ load_lunges <- function() {
     dplyr::bind_rows() %>%
     Sensors("deployid", "datetime", c("depth", "pitch", "roll", "speed"))
 
-  # TODO: suppress FutureWarning. Neither reticulate::py_suppress_warnings() nor
-  # suppressWarnings() worked.
   lunge_events <- purrr::map(lunge_data[[2]], "values") %>%
     purrr::map2(names(.), ~ dplyr::tibble(datetime = .x, deployid = .y)) %>%
     do.call(rbind, .) %>%
