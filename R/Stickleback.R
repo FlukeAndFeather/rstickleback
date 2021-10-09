@@ -53,7 +53,7 @@ Stickleback <- function(tsc, win_size, tol, nth = 1, n_folds = 4, seed = NULL) {
   .stickleback <- .sbenv$sb$Stickleback(
     tsc,
     as.integer(win_size),
-    .sbenv$util$timedelta(tol),
+    .sbenv$util$timedelta(paste0(tol,"S")),
     as.integer(nth),
     as.integer(n_folds),
     as.integer(seed)
@@ -91,5 +91,22 @@ sb_fit <- function(sb, sensors, events) {
 sb_predict <- function(sb, sensors) {
   stopifnot(inherits(sb, "Stickleback"),
             inherits(sensors, "Sensors"))
-  sb@.stickleback$predict(sensors@.data)
+  new("Predictions",
+      .data = sb@.stickleback$predict(sensors@.data))
+}
+
+#' Assess Stickleback predictions
+#'
+#' @param sb [Stickleback]
+#' @param predicted [Predictions]
+#' @param events [Events]
+#'
+#' @return [Outcomes]
+#' @export
+sb_assess <- function(sb, predicted, events) {
+  stopifnot(inherits(sb, "Stickleback"),
+            inherits(predicted, "Predictions"),
+            inherits(events, "Events"))
+  new("Outcomes",
+      .data = sb@.stickleback$assess(predicted@.data, events@.data))
 }

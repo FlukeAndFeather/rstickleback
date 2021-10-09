@@ -39,11 +39,6 @@ lunge-feeding behaviors.
 
 ``` r
 library(rstickleback)
-#> 
-#> Attaching package: 'rstickleback'
-#> The following object is masked from 'package:base':
-#> 
-#>     split
 # `load_lunges()` returns a list of sensors and events, so we use the multiple
 # assignment operator (%<-%) to destruct the list into separate `lunge_sensors`
 # and `lunge_events` objects.
@@ -66,7 +61,7 @@ sb_plot_data(deployid, lunge_sensors, lunge_events)
 ```
 
 ![Animated loop of interactively exploring data with
-plot\_sensors\_events()](inst/img/plot-sensors-events.gif)
+sb\_plot\_data()](inst/img/plot-sensors-events.gif)
 
 ### Define model
 
@@ -93,3 +88,33 @@ Fit the `Stickleback` object to the training data.
 ``` r
 sb_fit(sb, sensors_train, events_train)
 ```
+
+### Generate predictions
+
+Make predictions on the test data and assess prediction outcomes.
+
+``` r
+predictions <- sb_predict(sb, sensors_test)
+outcomes <- sb_assess(sb, predictions, events_test)
+outcomes
+#> Outcomes 
+#> # A tibble: 3 × 4
+#>   deployid       TP    FP    FN
+#>   <chr>       <int> <int> <int>
+#> 1 bw180905-42    44    11     2
+#> 2 bw180905-49    42     1     2
+#> 3 bw180905-53    25     4     1
+```
+
+### Visualize sensor and event data
+
+`sb_plot_predictions()` produces an interactive figure for exploring
+model predictions.
+
+``` r
+deployid <- deployments(sensors_test)[1]
+sb_plot_predictions(deployid, sensors_test, predictions, outcomes)
+```
+
+![Animated loop of interactively examining predictions with
+sb\_plot\_predictions()](inst/img/plot-predictions.gif)

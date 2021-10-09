@@ -1,0 +1,51 @@
+#' @include generics.R
+NULL
+
+#' Outcomes class
+#'
+#' Class representation for prediction outcomes.
+#'
+#' Users should not create Outcomes objects directly. They're the return type
+#' of sb_assess().
+#'
+#' @slot .data A list of Series.
+#'
+#' @rdname Outcomes
+setClass(
+  "Outcomes",
+  slots = c(.data = "list")
+)
+
+#' @export
+setMethod("show", "Outcomes", function(object) {
+  n_deploy <- length(object@.data)
+  cat(is(object)[[1]], "\n")
+  as.data.frame(object) %>%
+    dplyr::group_by(deployid) %>%
+    dplyr::summarize(TP = sum(outcome == "TP"),
+                     FP = sum(outcome == "FP"),
+                     FN = sum(outcome == "FN")) %>%
+    print()
+})
+
+#' @export
+#' @rdname Outcomes
+setMethod("deployments", "Outcomes", function(object) {
+  names(object@.data)
+})
+
+#' Convert Outcomes to data.frame
+#'
+#' @param x [Outcomes]
+#'
+#' @return [data.frame]
+#' @exportS3Method base::as.data.frame
+as.data.frame.Outcomes <- function(x, ...) {
+  purrr::map2_dfr(names(x@.data), x@.data, function (deployid, out) {
+    result <- data.frame(deployid = deployid) %>%
+      cbind(.sbenv$util$datetimeindex_to_isoformat(out))
+    result$datetime <- lubridate::with_tz(result$datetime, "UTC")
+    result
+  }) %>%
+    dplyr::relocate(deployid)
+}

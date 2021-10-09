@@ -63,7 +63,7 @@ deployid <- deployments(lunge_sensors)[1]
 sb_plot_data(deployid, lunge_sensors, lunge_events)
 ```
 
-![Animated loop of interactively exploring data with plot_sensors_events()](inst/img/plot-sensors-events.gif)
+![Animated loop of interactively exploring data with sb_plot_data()](inst/img/plot-sensors-events.gif)
 
 ### Define model
 
@@ -90,3 +90,23 @@ Fit the `Stickleback` object to the training data.
 sb_fit(sb, sensors_train, events_train)
 ```
 
+### Generate predictions
+
+Make predictions on the test data and assess prediction outcomes.
+
+```{r}
+predictions <- sb_predict(sb, sensors_test)
+outcomes <- sb_assess(sb, predictions, events_test)
+outcomes
+```
+
+### Visualize sensor and event data
+
+`sb_plot_predictions()` produces an interactive figure for exploring model predictions.
+
+```{r, eval=FALSE}
+deployid <- deployments(sensors_test)[1]
+sb_plot_predictions(deployid, sensors_test, predictions, outcomes)
+```
+
+![Animated loop of interactively examining predictions with sb_plot_predictions()](inst/img/plot-predictions.gif)

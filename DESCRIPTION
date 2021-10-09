@@ -29,6 +29,8 @@ RoxygenNote: 7.1.1
 Collate: 
     'generics.R'
     'Events.R'
+    'Outcomes.R'
+    'Predictions.R'
     'Sensors.R'
     'Stickleback.R'
     'data.R'
