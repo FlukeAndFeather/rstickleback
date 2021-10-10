@@ -15,9 +15,6 @@ sb_plot_predictions(deployid, sensors, predictions, outcomes = NULL)
 
 \item{outcomes}{\link{Outcomes}}
 }
-\value{
-
-}
 \description{
 Plot Stickleback predictions
 }

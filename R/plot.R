@@ -30,7 +30,6 @@ sb_plot_data <- function(deployid, sensors, events) {
 #' @param predictions [Predictions]
 #' @param outcomes [Outcomes]
 #'
-#' @return
 #' @export
 sb_plot_predictions <- function(deployid,
                                 sensors,

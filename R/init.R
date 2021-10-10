@@ -21,6 +21,6 @@
                                                 util_path,
                                                 delay_load = TRUE)
   } else {
-    message("Python package stickleback not found.")
+    packageStartupMessage("Python package stickleback not found.")
   }
 }
