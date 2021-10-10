@@ -4,6 +4,10 @@
 # `rstickleback`
 
 <!-- badges: start -->
+
+[![Codecov test
+coverage](https://codecov.io/gh/FlukeAndFeather/rstickleback/branch/main/graph/badge.svg)](https://codecov.io/gh/FlukeAndFeather/rstickleback?branch=main)
+[![R-CMD-check](https://github.com/FlukeAndFeather/rstickleback/workflows/R-CMD-check/badge.svg)](https://github.com/FlukeAndFeather/rstickleback/actions)
 <!-- badges: end -->
 
 > A machine learning pipeline for detecting fine-scale behavioral events
@@ -101,9 +105,9 @@ outcomes
 #> # A tibble: 3 × 4
 #>   deployid       TP    FP    FN
 #>   <chr>       <int> <int> <int>
-#> 1 bw180905-42    44    11     2
-#> 2 bw180905-49    42     1     2
-#> 3 bw180905-53    25     4     1
+#> 1 bw180905-42    38     4     8
+#> 2 bw180905-49    36     1     8
+#> 3 bw180905-53    25     2     1
 ```
 
 ### Visualize sensor and event data

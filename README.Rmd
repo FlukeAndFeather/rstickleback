@@ -16,6 +16,8 @@ knitr::opts_chunk$set(
 # `rstickleback`
 
 <!-- badges: start -->
+[![Codecov test coverage](https://codecov.io/gh/FlukeAndFeather/rstickleback/branch/main/graph/badge.svg)](https://codecov.io/gh/FlukeAndFeather/rstickleback?branch=main)
+[![R-CMD-check](https://github.com/FlukeAndFeather/rstickleback/workflows/R-CMD-check/badge.svg)](https://github.com/FlukeAndFeather/rstickleback/actions)
 <!-- badges: end -->
 
 > A machine learning pipeline for detecting fine-scale behavioral events in bio-logging data.
