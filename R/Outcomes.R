@@ -42,9 +42,12 @@ setMethod("deployments", "Outcomes", function(object) {
 #' @exportS3Method base::as.data.frame
 as.data.frame.Outcomes <- function(x, ...) {
   purrr::map2_dfr(names(x@.data), x@.data, function (deployid, out) {
-    result <- data.frame(deployid = deployid) %>%
-      cbind(.sbenv$util$datetimeindex_to_isoformat(out))
-    result$datetime <- lubridate::with_tz(result$datetime, "UTC")
+    outcome <- out$values
+    if (out$dtype$name == "string") outcome <- outcome$astype("str")
+    result <- data.frame(deployid = deployid,
+                         datetime = out$index$values,
+                         outcome = outcome)
+    result$datetime <- lubridate::force_tz(result$datetime, "UTC")
     result
   }) %>%
     dplyr::relocate(deployid)
