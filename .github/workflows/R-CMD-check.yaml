@@ -77,6 +77,7 @@ jobs:
       - name: Conda environment info
         run: |
           reticulate::py_config()$python
+          reticulate::py_config()$version
         shell: Rscript {0}
 
       - name: Check

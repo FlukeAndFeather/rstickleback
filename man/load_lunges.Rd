@@ -14,6 +14,3 @@ named by deployment ID).
 \description{
 Load sample data: blue whale lunge-feeding
 }
-\examples{
-sample_data <- load_lunges()
-}
