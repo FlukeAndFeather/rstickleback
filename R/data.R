@@ -4,9 +4,6 @@
 #'   data, named by deployment ID) and `events` (list of labeled events, also
 #'   named by deployment ID).
 #' @export
-#'
-#' @examples
-#' sample_data <- load_lunges()
 load_lunges <- function() {
   lunge_data <- .sbenv$sb_data$load_lunges()
 
