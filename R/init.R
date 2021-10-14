@@ -5,7 +5,7 @@
   # Manage Python dependencies automatically
   # https://rstudio.github.io/reticulate/articles/python_dependencies.html#-onload-configuration
   # Retrieved 2021-10-05
-  reticulate::configure_environment(pkgname)
+  reticulate::configure_environment(pkgname, force = testthat::is_testing())
 
   # Check stickleback availability (Config/reticulate doesn't always work)
   if (reticulate::py_module_available("stickleback")) {
