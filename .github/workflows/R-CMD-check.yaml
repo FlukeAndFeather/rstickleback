@@ -1,3 +1,4 @@
+# Copied from rstudio/reticulate and ruthkr/deepredeff
 on:
   push:
     branches:
@@ -61,19 +62,22 @@ jobs:
           do
             eval sudo $cmd
           done < <(Rscript -e 'writeLines(remotes::system_requirements("ubuntu", "20.04"))')
-      - name: Install Python dependencies
-        if: runner.os == 'Linux'
-        run: |
-          sudo apt-get update
-          sudo apt-get upgrade
-          sudo apt-get install python3-virtualenv
-          sudo apt-get install python3-venv
-        shell: /bin/bash {0}
 
       - name: Install dependencies
         run: |
+          install.packages(c("remotes"))
           remotes::install_deps(dependencies = TRUE)
-          remotes::install_cran("rcmdcheck")
+          remotes::install_cran("covr")
+        shell: Rscript {0}
+
+      - name: Install Miniconda
+        run: |
+          reticulate::install_miniconda()
+        shell: Rscript {0}
+
+      - name: Conda environment info
+        run: |
+          reticulate::py_config()$python
         shell: Rscript {0}
 
       - name: Check

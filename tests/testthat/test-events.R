@@ -37,14 +37,14 @@ test_that("Events() catches bad input", {
 })
 
 test_that("show() displays events properly", {
-  expect_snapshot_output(ev)
+  withr::with_options(list(max.print = 50), expect_snapshot_output(ev))
 })
 
 test_that("accessor works properly", {
   expect_equal(deployments(ev), unique(df$the_tag))
 })
 
-test_that("splitting returns two mutually exclusive events", {
+test_that("dividing returns two mutually exclusive events", {
   c(ev1, ev2) %<-% divide(ev, "A")
   expect_equal(deployments(ev1), "A")
   expect_equal(deployments(ev2), setdiff(unique(df$the_tag), "A"))

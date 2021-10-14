@@ -93,7 +93,12 @@ setMethod("divide", "Events", function(object, deployids) {
 #' @return data.frame
 #' @exportS3Method base::as.data.frame
 as.data.frame.Events <- function(x, ...) {
-  eventsdf <- purrr::map(x@.data, "values") %>%
-    purrr::map2(names(.), ~ dplyr::tibble(datetime = .x, deployid = .y)) %>%
-    do.call(rbind, .)
+  purrr::map2_dfr(names(x@.data), x@.data, function(deployid, datetimeindex) {
+    # Removing dimension fixes array issue with POSIXct and bind_rows
+    # See https://github.com/tidyverse/dplyr/issues/5525
+    # See https://github.com/r-lib/vctrs/issues/1290
+    datetime <- datetimeindex$values
+    dim(datetime) <- NULL
+    data.frame(deployid, datetime)
+  })
 }

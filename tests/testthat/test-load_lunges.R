@@ -13,12 +13,16 @@ test_that("data contains Sensors and Events", {
 
 test_that("sensor snapshot unchanged", {
   sensors_df <- as.data.frame(lunges$sensors)
-  expect_snapshot(lunges$sensors)
-  expect_snapshot(sensors_df)
+  withr::with_options(list(max.print = 50), {
+    expect_snapshot(lunges$sensors)
+    expect_snapshot(sensors_df)
+  })
 })
 
 test_that("event snapshot unchanged", {
   events_df <- as.data.frame(lunges$events)
-  expect_snapshot(lunges$events)
-  expect_snapshot(events_df)
+  withr::with_options(list(max.print = 50), {
+    expect_snapshot(lunges$events)
+    expect_snapshot(events_df)
+  })
 })
