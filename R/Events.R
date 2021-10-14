@@ -38,6 +38,11 @@ Events <- function(event_data, deployid_col, datetime_col) {
                                          datetime_col))
 }
 
+#' Print an object
+#'
+#' @param object Events, Outcomes, Predictions, or Sensors
+#'
+#' @rdname show
 #' @export
 setMethod("show", "Events", function(object) {
   n_deploy <- length(object@.data)
@@ -50,37 +55,25 @@ setMethod("show", "Events", function(object) {
 })
 
 #' @export
-#' @rdname Events
+#' @rdname accessors
 setMethod("deployments", "Events", function(object) {
   names(object@.data)
 })
 
-#' Convert Events to data.frame
+#' Divide Events/Sensors objects by deployment IDs
 #'
-#' @param x [Events]
+#' Useful for dividing into test-train sets.
 #'
-#' @return [data.frame]
-#' @exportS3Method base::as.data.frame
-as.data.frame.Events <- function(x, ...) {
-  eventsdf <- purrr::map(x@.data, "values") %>%
-    purrr::map2(names(.), ~ dplyr::tibble(datetime = .x, deployid = .y)) %>%
-    do.call(rbind, .)
-}
-
-#' Split objects by deployment IDs
+#' @param object Events/Sensors
+#' @param deployids Vector of deployment IDs
 #'
-#' Useful for test-train splitting.
-#'
-#' @param object [Sensors/Events]
-#' @param deployids Deployment IDs in one split
-#'
-#' @return a list of two Sensors/Events objects. The first element contains the
+#' @return a list of two Events/Sensors objects. The first element contains the
 #'   deployments with IDs in deployids, the second element contains the
 #'   remainder.
 #'
-#' @rdname split
-#' @exportS3Method base::split
-split.Events <- function(object, deployids) {
+#' @export
+#' @rdname divide
+setMethod("divide", "Events", function(object, deployids) {
   stopifnot(all(deployids %in% deployments(object)))
   eventsdf <- as.data.frame(object)
   events1 <- eventsdf %>%
@@ -90,4 +83,17 @@ split.Events <- function(object, deployids) {
     dplyr::filter(!deployid %in% deployids) %>%
     Events("deployid", "datetime")
   list(events1, events2)
+})
+
+#' Convert Events to data.frame
+#'
+#' @param x Events
+#' @param ... not used
+#'
+#' @return data.frame
+#' @exportS3Method base::as.data.frame
+as.data.frame.Events <- function(x, ...) {
+  eventsdf <- purrr::map(x@.data, "values") %>%
+    purrr::map2(names(.), ~ dplyr::tibble(datetime = .x, deployid = .y)) %>%
+    do.call(rbind, .)
 }

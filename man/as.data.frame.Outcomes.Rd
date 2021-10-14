@@ -7,10 +7,12 @@
 \method{as.data.frame}{Outcomes}(x, ...)
 }
 \arguments{
-\item{x}{\link{Outcomes}}
+\item{x}{Outcomes}
+
+\item{...}{not used}
 }
 \value{
-\link{data.frame}
+data.frame
 }
 \description{
 Convert Outcomes to data.frame

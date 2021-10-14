@@ -1,9 +1,9 @@
 #' Create a time series classification model.
 #'
-#' @param module [character(1)] Name of module in sktime.classification, e.g.
+#' @param module \[character(1)\] Name of module in sktime.classification, e.g.
 #'   "interval_based".
-#' @param algorithm [character(1)] Name of time series classification algorithm.
-#' @param params [list] Hyperparameters to algorithm.
+#' @param algorithm \[character(1)\] Name of time series classification algorithm.
+#' @param params \[list\] Hyperparameters to algorithm.
 #'
 #' @return A time series classification model, for use in fitting a Stickleback
 #'   object.
@@ -16,11 +16,11 @@ create_tsc <- function(module, algorithm, params) {
 
 #' Compose time series classification model across multiple variables.
 #'
-#' @param module [character(1)] Name of module in sktime.classification, e.g.
+#' @param module \[character(1)\] Name of module in sktime.classification, e.g.
 #'   "interval_based".
-#' @param algorithm [character(1)] Name of time series classification algorithm.
-#' @param params [list] Hyperparameters to algorithm.
-#' @param columns [character] Names of columns for composition.
+#' @param algorithm \[character(1)\] Name of time series classification algorithm.
+#' @param params \[list\] Hyperparameters to algorithm.
+#' @param columns \[character\] Names of columns for composition.
 #'
 #' @return A time series classification model, for use in fitting a Stickleback
 #'   object.

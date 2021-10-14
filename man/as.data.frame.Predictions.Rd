@@ -7,10 +7,12 @@
 \method{as.data.frame}{Predictions}(x, ...)
 }
 \arguments{
-\item{x}{\link{Predictions}}
+\item{x}{Predictions}
+
+\item{...}{not used}
 }
 \value{
-\link{data.frame}
+data.frame
 }
 \description{
 Convert Predictions to data.frame

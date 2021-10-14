@@ -4,15 +4,9 @@
 \name{Sensors-class}
 \alias{Sensors-class}
 \alias{Sensors}
-\alias{deployments,Sensors-method}
-\alias{columns,Sensors-method}
 \title{Sensors class}
 \usage{
 Sensors(sensor_data, deployid_col, datetime_col, sensor_cols)
-
-\S4method{deployments}{Sensors}(object)
-
-\S4method{columns}{Sensors}(object)
 }
 \arguments{
 \item{sensor_data}{a data frame. Must have columns for deployment ID and

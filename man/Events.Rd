@@ -4,12 +4,9 @@
 \name{Events-class}
 \alias{Events-class}
 \alias{Events}
-\alias{deployments,Events-method}
 \title{Events class}
 \usage{
 Events(event_data, deployid_col, datetime_col)
-
-\S4method{deployments}{Events}(object)
 }
 \arguments{
 \item{event_data}{a data frame. Must have columns for deployment ID and event

@@ -7,10 +7,12 @@
 \method{as.data.frame}{Sensors}(x, ...)
 }
 \arguments{
-\item{x}{\link{Sensors}}
+\item{x}{Sensors}
+
+\item{...}{not used}
 }
 \value{
-\link{data.frame}
+data.frame
 }
 \description{
 Convert Sensors to data.frame

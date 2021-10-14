@@ -3,11 +3,7 @@
 \docType{class}
 \name{Predictions-class}
 \alias{Predictions-class}
-\alias{deployments,Predictions-method}
 \title{Predictions class}
-\usage{
-\S4method{deployments}{Predictions}(object)
-}
 \description{
 Class representation for event predictions.
 }

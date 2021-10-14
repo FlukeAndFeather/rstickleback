@@ -48,10 +48,10 @@ library(rstickleback)
 # and `lunge_events` objects.
 c(lunge_sensors, lunge_events) %<-% load_lunges()
 
-# Again we use %<-%, to split the sensors and events into test and train sets
+# Again we use %<-%, to divide the sensors and events into test and train sets
 test_deployids <- deployments(lunge_sensors)[1:3]
-c(sensors_test, sensors_train) %<-% split(lunge_sensors, test_deployids)
-c(events_test, events_train) %<-% split(lunge_events, test_deployids)
+c(sensors_test, sensors_train) %<-% divide(lunge_sensors, test_deployids)
+c(events_test, events_train) %<-% divide(lunge_events, test_deployids)
 ```
 
 ### Visualize sensor and event data
@@ -105,9 +105,9 @@ outcomes
 #> # A tibble: 3 × 4
 #>   deployid       TP    FP    FN
 #>   <chr>       <int> <int> <int>
-#> 1 bw180905-42    38     4     8
-#> 2 bw180905-49    36     1     8
-#> 3 bw180905-53    25     2     1
+#> 1 bw180905-42    45     8     1
+#> 2 bw180905-49    41     0     3
+#> 3 bw180905-53    25     5     1
 ```
 
 ### Visualize sensor and event data

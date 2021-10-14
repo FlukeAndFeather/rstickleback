@@ -5,6 +5,7 @@
 #' @name %>%
 #' @rdname pipe
 #' @keywords internal
+#' @export
 #' @importFrom magrittr %>%
 #' @usage lhs \%>\% rhs
 #' @param lhs A value or the magrittr placeholder.
@@ -17,6 +18,8 @@ NULL
 #' See \code{zeallot::\link[zeallot:operator]{\%<-\%}} for details.
 #'
 #' @name %<-%
-#' @importFrom zeallot %<-%
+#' @rdname multiple-assignment
+#' @keywords internal
 #' @export
+#' @importFrom zeallot %<-%
 NULL

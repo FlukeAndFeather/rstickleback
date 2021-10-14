@@ -14,9 +14,11 @@ Description: Stickleback is a machine-learning pipeline for using time
 License: MIT + file LICENSE
 Imports: 
     dplyr,
+    jsonlite,
     lubridate,
     magrittr,
     methods,
+    plotly,
     purrr,
     reticulate,
     zeallot
@@ -39,6 +41,7 @@ Collate:
     'plot.R'
     'tsc.R'
     'utils-pipe.R'
+    'zzz.R'
 Suggests: 
     rmarkdown,
     knitr,

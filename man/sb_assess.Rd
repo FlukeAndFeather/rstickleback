@@ -7,14 +7,14 @@
 sb_assess(sb, predicted, events)
 }
 \arguments{
-\item{sb}{\link{Stickleback}}
+\item{sb}{Stickleback}
 
-\item{predicted}{\link{Predictions}}
+\item{predicted}{Predictions}
 
-\item{events}{\link{Events}}
+\item{events}{Events}
 }
 \value{
-\link{Outcomes}
+Outcomes
 }
 \description{
 Assess Stickleback predictions

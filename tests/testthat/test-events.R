@@ -45,7 +45,7 @@ test_that("accessor works properly", {
 })
 
 test_that("splitting returns two mutually exclusive events", {
-  c(ev1, ev2) %<-% split(ev, "A")
+  c(ev1, ev2) %<-% divide(ev, "A")
   expect_equal(deployments(ev1), "A")
   expect_equal(deployments(ev2), setdiff(unique(df$the_tag), "A"))
 })

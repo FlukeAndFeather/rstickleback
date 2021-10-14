@@ -7,11 +7,11 @@
 sb_fit(sb, sensors, events)
 }
 \arguments{
-\item{sb}{\link{Stickleback}}
+\item{sb}{Stickleback}
 
-\item{sensors}{\link{Sensors}}
+\item{sensors}{Sensors}
 
-\item{events}{\link{Events}}
+\item{events}{Events}
 }
 \description{
 Fit a Stickleback model

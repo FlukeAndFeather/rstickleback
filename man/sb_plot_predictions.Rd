@@ -7,13 +7,13 @@
 sb_plot_predictions(deployid, sensors, predictions, outcomes = NULL)
 }
 \arguments{
-\item{deployid}{\link{character(1)} Deployment ID.}
+\item{deployid}{character(1) Deployment ID.}
 
-\item{sensors}{\link{Sensors} Sensor data.}
+\item{sensors}{Sensors Sensor data.}
 
-\item{predictions}{\link{Predictions}}
+\item{predictions}{Predictions}
 
-\item{outcomes}{\link{Outcomes}}
+\item{outcomes}{Outcomes}
 }
 \description{
 Plot Stickleback predictions

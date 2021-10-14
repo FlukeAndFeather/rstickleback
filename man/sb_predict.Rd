@@ -7,9 +7,9 @@
 sb_predict(sb, sensors)
 }
 \arguments{
-\item{sb}{\link{Stickleback}}
+\item{sb}{Stickleback}
 
-\item{sensors}{\link{Sensors}}
+\item{sensors}{Sensors}
 }
 \description{
 Predict with a Stickleback model

@@ -3,11 +3,7 @@
 \docType{class}
 \name{Outcomes-class}
 \alias{Outcomes-class}
-\alias{deployments,Outcomes-method}
 \title{Outcomes class}
-\usage{
-\S4method{deployments}{Outcomes}(object)
-}
 \description{
 Class representation for prediction outcomes.
 }

@@ -6,3 +6,4 @@
 \description{
 See \code{zeallot::\link[zeallot:operator]{\%<-\%}} for details.
 }
+\keyword{internal}

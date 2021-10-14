@@ -35,7 +35,7 @@ setClass(
 #' @param tol numeric. Prediction tolerance, in seconds.
 #' @param nth integer. Sliding window step size.
 #' @param n_folds integer. Number of folds for global cross validation step.
-#' @slot seed integer. Random number seed.
+#' @param seed integer. Random number seed.
 #'
 #' @rdname Stickleback
 #' @export
@@ -70,9 +70,9 @@ Stickleback <- function(tsc, win_size, tol, nth = 1, n_folds = 4, seed = NULL) {
 
 #' Fit a Stickleback model
 #'
-#' @param sb [Stickleback]
-#' @param sensors [Sensors]
-#' @param events [Events]
+#' @param sb Stickleback
+#' @param sensors Sensors
+#' @param events Events
 #'
 #' @export
 sb_fit <- function(sb, sensors, events) {
@@ -84,8 +84,8 @@ sb_fit <- function(sb, sensors, events) {
 
 #' Predict with a Stickleback model
 #'
-#' @param sb [Stickleback]
-#' @param sensors [Sensors]
+#' @param sb Stickleback
+#' @param sensors Sensors
 #'
 #' @export
 sb_predict <- function(sb, sensors) {
@@ -97,11 +97,11 @@ sb_predict <- function(sb, sensors) {
 
 #' Assess Stickleback predictions
 #'
-#' @param sb [Stickleback]
-#' @param predicted [Predictions]
-#' @param events [Events]
+#' @param sb Stickleback
+#' @param predicted Predictions
+#' @param events Events
 #'
-#' @return [Outcomes]
+#' @return Outcomes
 #' @export
 sb_assess <- function(sb, predicted, events) {
   stopifnot(inherits(sb, "Stickleback"),

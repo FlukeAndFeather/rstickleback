@@ -7,10 +7,12 @@
 \method{as.data.frame}{Events}(x, ...)
 }
 \arguments{
-\item{x}{\link{Events}}
+\item{x}{Events}
+
+\item{...}{not used}
 }
 \value{
-\link{data.frame}
+data.frame
 }
 \description{
 Convert Events to data.frame

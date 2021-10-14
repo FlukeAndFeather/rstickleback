@@ -16,6 +16,7 @@ setClass(
   slots = c(.data = "list")
 )
 
+#' @rdname show
 #' @export
 setMethod("show", "Outcomes", function(object) {
   n_deploy <- length(object@.data)
@@ -29,16 +30,17 @@ setMethod("show", "Outcomes", function(object) {
 })
 
 #' @export
-#' @rdname Outcomes
+#' @rdname accessors
 setMethod("deployments", "Outcomes", function(object) {
   names(object@.data)
 })
 
 #' Convert Outcomes to data.frame
 #'
-#' @param x [Outcomes]
+#' @param x Outcomes
+#' @param ... not used
 #'
-#' @return [data.frame]
+#' @return data.frame
 #' @exportS3Method base::as.data.frame
 as.data.frame.Outcomes <- function(x, ...) {
   purrr::map2_dfr(names(x@.data), x@.data, function (deployid, out) {

@@ -18,6 +18,8 @@ Stickleback(tsc, win_size, tol, nth = 1, n_folds = 4, seed = NULL)
 \item{nth}{integer. Sliding window step size.}
 
 \item{n_folds}{integer. Number of folds for global cross validation step.}
+
+\item{seed}{integer. Random number seed.}
 }
 \description{
 R wrapper class for the Python implementation of the Stickleback method, used
@@ -44,7 +46,5 @@ BaseEstimator.}
 \item{\code{seed}}{integer. Random number seed.}
 
 \item{\code{.stickleback}}{Python Stickleback object.}
-
-\item{\code{seed}}{integer. Random number seed.}
 }}
 

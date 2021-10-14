@@ -7,11 +7,11 @@
 sb_plot_data(deployid, sensors, events)
 }
 \arguments{
-\item{deployid}{\link{character(1)} Deployment ID.}
+\item{deployid}{character(1) Deployment ID.}
 
-\item{sensors}{\link{Sensors} Sensor data.}
+\item{sensors}{Sensors Sensor data.}
 
-\item{events}{\link{Events} Event data.}
+\item{events}{Events Event data.}
 }
 \value{
 A plotly figure.

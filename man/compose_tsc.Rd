@@ -7,14 +7,14 @@
 compose_tsc(module, algorithm, params, columns)
 }
 \arguments{
-\item{module}{\link{character(1)} Name of module in sktime.classification, e.g.
+\item{module}{[character(1)] Name of module in sktime.classification, e.g.
 "interval_based".}
 
-\item{algorithm}{\link{character(1)} Name of time series classification algorithm.}
+\item{algorithm}{[character(1)] Name of time series classification algorithm.}
 
-\item{params}{\link{list} Hyperparameters to algorithm.}
+\item{params}{[list] Hyperparameters to algorithm.}
 
-\item{columns}{\link{character} Names of columns for composition.}
+\item{columns}{[character] Names of columns for composition.}
 }
 \value{
 A time series classification model, for use in fitting a Stickleback

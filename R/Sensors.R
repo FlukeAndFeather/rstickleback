@@ -42,6 +42,7 @@ Sensors <- function(sensor_data, deployid_col, datetime_col, sensor_cols) {
                                           sensor_cols))
 }
 
+#' @rdname show
 #' @export
 setMethod("show", "Sensors", function(object) {
   n_deploy <- length(object@.data)
@@ -54,22 +55,37 @@ setMethod("show", "Sensors", function(object) {
 })
 
 #' @export
-#' @rdname Sensors
+#' @rdname accessors
 setMethod("deployments", "Sensors", function(object) {
   names(object@.data)
 })
 
 #' @export
-#' @rdname Sensors
+#' @rdname accessors
 setMethod("columns", "Sensors", function(object) {
   object@.data[[1]]$columns$values
 })
 
+#' @export
+#' @rdname divide
+setMethod("divide", "Sensors", function(object, deployids) {
+  stopifnot(all(deployids %in% deployments(object)))
+  sensorsdf <- as.data.frame(object)
+  sensors1 <- sensorsdf %>%
+    dplyr::filter(deployid %in% deployids) %>%
+    Sensors("deployid", "datetime", columns(object))
+  sensors2 <- sensorsdf %>%
+    dplyr::filter(!deployid %in% deployids) %>%
+    Sensors("deployid", "datetime", columns(object))
+  list(sensors1, sensors2)
+})
+
 #' Convert Sensors to data.frame
 #'
-#' @param x [Sensors]
+#' @param x Sensors
+#' @param ... not used
 #'
-#' @return [data.frame]
+#' @return data.frame
 #' @exportS3Method base::as.data.frame
 as.data.frame.Sensors <- function(x, ...) {
   import_sensors <- function(df) {
@@ -82,18 +98,4 @@ as.data.frame.Sensors <- function(x, ...) {
     purrr::map2(names(.), ~ dplyr::mutate(.x, deployid = .y)) %>%
     dplyr::bind_rows() %>%
     dplyr::relocate(deployid)
-}
-
-#' @rdname split
-#' @exportS3Method base::split
-split.Sensors <- function(object, deployids) {
-  stopifnot(all(deployids %in% deployments(object)))
-  sensorsdf <- as.data.frame(object)
-  sensors1 <- sensorsdf %>%
-    dplyr::filter(deployid %in% deployids) %>%
-    Sensors("deployid", "datetime", columns(object))
-  sensors2 <- sensorsdf %>%
-    dplyr::filter(!deployid %in% deployids) %>%
-    Sensors("deployid", "datetime", columns(object))
-  list(sensors1, sensors2)
 }
