@@ -63,15 +63,16 @@ jobs:
             eval sudo $cmd
           done < <(Rscript -e 'writeLines(remotes::system_requirements("ubuntu", "20.04"))')
 
-      - name: Install dependencies
+      - name: Install R dependencies
         run: |
           install.packages(c("remotes", "rcmdcheck"))
           remotes::install_deps(dependencies = TRUE)
         shell: Rscript {0}
 
-      - name: Install Miniconda
+      - name: Install Miniconda and Stickleback
         run: |
           reticulate::install_miniconda()
+          reticulate::conda_install("r-reticulate", "stickleback", pip = TRUE)
         shell: Rscript {0}
 
       - name: Conda environment info
