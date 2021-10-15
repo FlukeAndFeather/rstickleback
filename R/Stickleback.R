@@ -51,12 +51,12 @@ Stickleback <- function(tsc, win_size, tol, nth = 1, n_folds = 4, seed = NULL) {
             (is.null(seed) || (is.numeric(seed) && length(seed) == 1)))
 
   .stickleback <- .sbenv$sb$Stickleback(
-    tsc,
-    as.integer(win_size),
-    .sbenv$util$timedelta(paste0(tol,"S")),
-    as.integer(nth),
-    as.integer(n_folds),
-    as.integer(seed)
+    local_clf = tsc,
+    win_size = as.integer(win_size),
+    tol = .sbenv$util$timedelta(paste0(tol,"S")),
+    nth = as.integer(nth),
+    n_folds = as.integer(n_folds),
+    seed = as.integer(seed)
   )
 
   new("Stickleback",

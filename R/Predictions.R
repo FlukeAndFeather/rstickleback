@@ -20,10 +20,10 @@ setClass(
 #' @export
 setMethod("show", "Predictions", function(object) {
   n_deploy <- length(object@.data)
-  cols <- object@.data[[1]]$columns$values
+  n_events <- sum(purrr::map_int(object@.data, ~ length(.x[[2]]$values)))
   cat(is(object)[[1]], "\n",
       "  ", n_deploy, " deployments.", "\n",
-      "  With columns: ", paste(cols, collapse = ", "), "\n",
+      "  With ", n_events, " predicted events.","\n",
       sep = ""
   )
 })
