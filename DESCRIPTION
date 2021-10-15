@@ -1,6 +1,6 @@
 Package: rstickleback
 Title: Automated Behavioral Event Detection in Bio-logger Data
-Version: 0.0.0.9000
+Version: 0.0.1
 Authors@R: 
     person(given = "Max",
            family = "Czapanskiy",
@@ -23,7 +23,7 @@ Imports:
     reticulate,
     zeallot
 Config/reticulate: list( packages = list( list(package = "stickleback",
-    version = "0.1.4", pip = TRUE) ) )
+    version = "0.1.5", pip = TRUE) ) )
 Encoding: UTF-8
 Language: es
 LazyData: true

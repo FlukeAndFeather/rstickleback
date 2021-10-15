@@ -72,7 +72,7 @@ jobs:
       - name: Install Miniconda and Stickleback
         run: |
           reticulate::install_miniconda()
-          reticulate::conda_install("r-reticulate", "stickleback", pip = TRUE)
+          reticulate::conda_install("r-reticulate", "stickleback==0.1.5", pip = TRUE)
         shell: Rscript {0}
 
       - name: Conda environment info
