@@ -68,6 +68,7 @@ def datetimeindex_to_isoformat(df):
   Returns:
     As df, but times from index in a column (ISO format).
   """
+  df.index = df.index.tz_localize("UTC")
   return (df
           .reset_index()
           .rename(columns={'index':'datetime'}))

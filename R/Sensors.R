@@ -33,7 +33,7 @@ Sensors <- function(sensor_data, deployid_col, datetime_col, sensor_cols) {
             datetime_col %in% colnames(sensor_data),
             inherits(sensor_data[[datetime_col]], "POSIXct"))
   stopifnot(is.character(sensor_cols),
-            all(deployid_col %in% colnames(sensor_data)))
+            all(sensor_cols %in% colnames(sensor_data)))
 
   new("Sensors",
       .data = .sbenv$util$convert_sensors(sensor_data,
@@ -45,11 +45,11 @@ Sensors <- function(sensor_data, deployid_col, datetime_col, sensor_cols) {
 #' @rdname show
 #' @export
 setMethod("show", "Sensors", function(object) {
-  n_deploy <- length(object@.data)
-  cols <- object@.data[[1]]$columns$values
+  n_deploy <- length(deployments(object))
+  cols <- columns(object)
   cat(is(object)[[1]], "\n",
       "  ", n_deploy, " deployments.", "\n",
-      "  With columns: ", paste(cols, collapse = ", "), "\n",
+      "  With column(s): ", paste(cols, collapse = ", "), "\n",
       sep = ""
   )
 })
@@ -63,7 +63,11 @@ setMethod("deployments", "Sensors", function(object) {
 #' @export
 #' @rdname accessors
 setMethod("columns", "Sensors", function(object) {
-  object@.data[[1]]$columns$values
+  if (inherits(object@.data[[1]], "pandas.core.series.Series")) {
+    object@.data[[1]]$name
+  } else {
+    object@.data[[1]]$columns$values
+  }
 })
 
 #' @export
@@ -88,14 +92,27 @@ setMethod("divide", "Sensors", function(object, deployids) {
 #' @return data.frame
 #' @exportS3Method base::as.data.frame
 as.data.frame.Sensors <- function(x, ...) {
-  import_sensors <- function(df) {
+  import_sensors_df <- function(df, id) {
     result <- df %>%
       .sbenv$util$datetimeindex_to_isoformat()
     result$datetime <- lubridate::with_tz(result$datetime, "UTC")
+    result$deployid = id
+    dplyr::relocate(result, deployid)
+  }
+  import_sensors_series <- function(s, id) {
+    dt <- s$index$values %>%
+      lubridate::force_tz("UTC")
+    col <- s$values
+    dim(dt) <- NULL
+    dim(col) <- NULL
+    result <- data.frame(deployid = id, datetime = dt, col = col)
+    colnames(result)[3] <- s$name
     result
   }
-  purrr::map(x@.data, import_sensors) %>%
-    purrr::map2(names(.), ~ dplyr::mutate(.x, deployid = .y)) %>%
-    dplyr::bind_rows() %>%
-    dplyr::relocate(deployid)
+  f <- if (inherits(x@.data[[1]], "pandas.core.series.Series")) {
+   import_sensors_series
+  } else {
+    import_sensors_df
+  }
+  purrr::map2_dfr(x@.data, names(x@.data), f)
 }

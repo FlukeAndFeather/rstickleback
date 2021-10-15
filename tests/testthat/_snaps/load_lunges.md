@@ -5,7 +5,7 @@
     Output
       Sensors
         6 deployments.
-        With columns: depth, pitch, roll, speed
+        With column(s): depth, pitch, roll, speed
 
 ---
 

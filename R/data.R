@@ -19,14 +19,16 @@ load_lunges <- function() {
     result$datetime <- lubridate::with_tz(result$datetime, "UTC")
     result
   }
+
   lunge_sensors <- purrr::map(lunge_data[[1]], import_sensors) %>%
-    purrr::map2(names(.), ~ dplyr::mutate(.x, deployid = .y)) %>%
-    dplyr::bind_rows() %>%
+    purrr::map2_dfr(names(.), ~ dplyr::mutate(.x, deployid = .y)) %>%
     Sensors("deployid", "datetime", c("depth", "pitch", "roll", "speed"))
 
   lunge_events <- purrr::map(lunge_data[[2]], "values") %>%
-    purrr::map2(names(.), ~ dplyr::tibble(datetime = .x, deployid = .y)) %>%
-    do.call(rbind, .) %>%
+    purrr::map2_dfr(names(.), function(dt, id) {
+      dim(dt) <- NULL
+      data.frame(datetime = dt, deployid = id)
+    }) %>%
     Events("deployid", "datetime")
 
   list(sensors = lunge_sensors,
