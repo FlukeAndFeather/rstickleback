@@ -9,42 +9,85 @@
 Stickleback(tsc, win_size, tol, nth = 1, n_folds = 4, seed = NULL)
 }
 \arguments{
-\item{tsc}{Python time series classifier. Must inherit sktime's BaseEstimator.}
+\item{tsc}{\verb{[py:sktime.base.BaseEstimator]} A time series classifier created
+with either \code{\link{compose_tsc}} or \code{\link{create_tsc}}.}
 
-\item{win_size}{integer. Sliding window size.}
+\item{win_size}{\verb{[integer(1)]} Sliding window size in number of observations.
+E.g., for 10 Hz data and a 5 s sliding window, \code{win_size} should be 50.}
 
-\item{tol}{numeric. Prediction tolerance, in seconds.}
+\item{tol}{\verb{[numeric(1)]} Prediction tolerance, in seconds. See
+\code{\link{sb_assess}} for details.}
 
-\item{nth}{integer. Sliding window step size.}
+\item{nth}{\verb{[integer(1)]} Sliding window step size. For example, when \code{nth} =
+1, the time series classifier (\code{tsc}) will make predictions on every
+window. When \code{nth} = 2, \code{tsc} predictions are only generated for every
+other window. Higher \code{nth} values reduce the time to fit a Stickleback
+model and generate predictions, at the potential cost of reduced prediction
+accuracy.}
 
-\item{n_folds}{integer. Number of folds for global cross validation step.}
+\item{n_folds}{\verb{[integer(1)]} Number of folds for internal cross validation.
+\code{n_folds} must be at least 2. Larger \code{n_folds} values increase model
+fitting time, but may have greater out-of-sample accuracy.}
 
-\item{seed}{integer. Random number seed.}
+\item{seed}{\verb{[integer(1)]} Random number seed for model reproducibility.
+CURRENTLY NOT WORKING (see \href{https://github.com/FlukeAndFeather/rstickleback/issues/6}{issue #6}).}
 }
 \description{
-R wrapper class for the Python implementation of the Stickleback method, used
-for automated detection of behavioral events in bio-logging data.
+Define a Stickleback model, used for automated detection of behavioral events
+in bio-logging data.
 }
 \details{
-Create a Stickleback object with Stickleback(). Fit it to labeled data with
-fit(). Predict on new data with predict().
+There are two challenges facing automated behavioral event detection in
+bio-logging data. First, bio-logging data are time series and most
+classification algorithms have poor performance on time series. Second,
+bio-logging data resolution greatly exceeds the frequency of many biological
+rates, creating an imbalanced class problem. For example, bio-logging data
+collected from baleen whales is often standardized at 10 Hz, but feeding
+rates are approximately 200-500 events per day. Therefore, the "behavioral
+event" class is on the order of 1000s times smaller than the "non-event"
+class.
+
+Stickleback addresses these challenges in a two-stage process. First, it uses
+classification algorithms specifically designed for time series data by
+interfacing with the \href{https://www.sktime.org/en/stable/}{sktime} Python
+package. Second, it under-samples the majority class ("non-events") when
+training the classifier, then optimizes event prediction using internal
+cross-validation. See \code{vignette(rstickleback)} for more details.
 }
 \section{Slots}{
 
 \describe{
-\item{\code{local_clf}}{Python time series classifier. Must inherit sktime's
-BaseEstimator.}
+\item{\code{local_clf}}{\verb{[py:sktime.base.BaseEstimator]} A time series classifier,
+inheriting from sktime's BaseEstimator.}
 
-\item{\code{win_size}}{integer. Sliding window size.}
+\item{\code{win_size}}{\verb{[integer(1)]} Sliding window size.}
 
-\item{\code{tol}}{numeric. Prediction tolerance, in seconds.}
+\item{\code{tol}}{\verb{[numeric(1)]} Prediction tolerance, in seconds.}
 
-\item{\code{nth}}{integer. Sliding window step size.}
+\item{\code{nth}}{\verb{[integer(1)]} Sliding window step size.}
 
-\item{\code{n_folds}}{integer. Number of folds for global cross validation step.}
+\item{\code{n_folds}}{\verb{[integer(1)]} Number of folds for global cross validation
+step.}
 
-\item{\code{seed}}{integer. Random number seed.}
+\item{\code{seed}}{\verb{[integer(1)]} Random number seed.}
 
-\item{\code{.stickleback}}{Python Stickleback object.}
+\item{\code{.stickleback}}{\verb{[py:Stickleback]} Python Stickleback object.}
 }}
 
+\examples{
+# Load sample data
+c(lunge_sensors, lunge_events) \%<-\% load_lunges()
+# Define a time series classifier
+tsc <- compose_tsc(module = "interval_based",
+                   algorithm = "SupervisedTimeSeriesForest",
+                   params = list(n_estimators = 2L, random_state = 4321L),
+                   columns = columns(lunge_sensors))
+# Define a Stickleback model
+sb <- Stickleback(tsc,
+                  win_size = 50,
+                  tol = 5,
+                  nth = 10,
+                  n_folds = 4,
+                  seed = 1234)
+
+}

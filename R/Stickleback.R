@@ -3,20 +3,51 @@ NULL
 
 #' Stickleback class
 #'
-#' R wrapper class for the Python implementation of the Stickleback method, used
-#' for automated detection of behavioral events in bio-logging data.
+#' Define a Stickleback model, used for automated detection of behavioral events
+#' in bio-logging data.
 #'
-#' Create a Stickleback object with Stickleback(). Fit it to labeled data with
-#' fit(). Predict on new data with predict().
+#' There are two challenges facing automated behavioral event detection in
+#' bio-logging data. First, bio-logging data are time series and most
+#' classification algorithms have poor performance on time series. Second,
+#' bio-logging data resolution greatly exceeds the frequency of many biological
+#' rates, creating an imbalanced class problem. For example, bio-logging data
+#' collected from baleen whales is often standardized at 10 Hz, but feeding
+#' rates are approximately 200-500 events per day. Therefore, the "behavioral
+#' event" class is on the order of 1000s times smaller than the "non-event"
+#' class.
 #'
-#' @slot local_clf Python time series classifier. Must inherit sktime's
-#'   BaseEstimator.
-#' @slot win_size integer. Sliding window size.
-#' @slot tol numeric. Prediction tolerance, in seconds.
-#' @slot nth integer. Sliding window step size.
-#' @slot n_folds integer. Number of folds for global cross validation step.
-#' @slot seed integer. Random number seed.
-#' @slot .stickleback Python Stickleback object.
+#' Stickleback addresses these challenges in a two-stage process. First, it uses
+#' classification algorithms specifically designed for time series data by
+#' interfacing with the [sktime](https://www.sktime.org/en/stable/) Python
+#' package. Second, it under-samples the majority class ("non-events") when
+#' training the classifier, then optimizes event prediction using internal
+#' cross-validation. See `vignette(rstickleback)` for more details.
+#'
+#' @slot local_clf `[py:sktime.base.BaseEstimator]` A time series classifier,
+#'   inheriting from sktime's BaseEstimator.
+#' @slot win_size `[integer(1)]` Sliding window size.
+#' @slot tol `[numeric(1)]` Prediction tolerance, in seconds.
+#' @slot nth `[integer(1)]` Sliding window step size.
+#' @slot n_folds `[integer(1)]` Number of folds for global cross validation
+#'   step.
+#' @slot seed `[integer(1)]` Random number seed.
+#' @slot .stickleback `[py:Stickleback]` Python Stickleback object.
+#'
+#' @examples
+#' # Load sample data
+#' c(lunge_sensors, lunge_events) %<-% load_lunges()
+#' # Define a time series classifier
+#' tsc <- compose_tsc(module = "interval_based",
+#'                    algorithm = "SupervisedTimeSeriesForest",
+#'                    params = list(n_estimators = 2L, random_state = 4321L),
+#'                    columns = columns(lunge_sensors))
+#' # Define a Stickleback model
+#' sb <- Stickleback(tsc,
+#'                   win_size = 50,
+#'                   tol = 5,
+#'                   nth = 10,
+#'                   n_folds = 4,
+#'                   seed = 1234)
 #'
 #' @rdname Stickleback
 setClass(
@@ -30,12 +61,24 @@ setClass(
             .stickleback = "ANY")
 )
 
-#' @param tsc Python time series classifier. Must inherit sktime's BaseEstimator.
-#' @param win_size integer. Sliding window size.
-#' @param tol numeric. Prediction tolerance, in seconds.
-#' @param nth integer. Sliding window step size.
-#' @param n_folds integer. Number of folds for global cross validation step.
-#' @param seed integer. Random number seed.
+#' @param tsc `[py:sktime.base.BaseEstimator]` A time series classifier created
+#'   with either \code{\link{compose_tsc}} or \code{\link{create_tsc}}.
+#' @param win_size `[integer(1)]` Sliding window size in number of observations.
+#'   E.g., for 10 Hz data and a 5 s sliding window, `win_size` should be 50.
+#' @param tol `[numeric(1)]` Prediction tolerance, in seconds. See
+#'   \code{\link{sb_assess}} for details.
+#' @param nth `[integer(1)]` Sliding window step size. For example, when `nth` =
+#'   1, the time series classifier (`tsc`) will make predictions on every
+#'   window. When `nth` = 2, `tsc` predictions are only generated for every
+#'   other window. Higher `nth` values reduce the time to fit a Stickleback
+#'   model and generate predictions, at the potential cost of reduced prediction
+#'   accuracy.
+#' @param n_folds `[integer(1)]` Number of folds for internal cross validation.
+#'   `n_folds` must be at least 2. Larger `n_folds` values increase model
+#'   fitting time, but may have greater out-of-sample accuracy.
+#' @param seed `[integer(1)]` Random number seed for model reproducibility.
+#'   CURRENTLY NOT WORKING (see [issue
+#'   #6](https://github.com/FlukeAndFeather/rstickleback/issues/6)).
 #'
 #' @rdname Stickleback
 #' @export
