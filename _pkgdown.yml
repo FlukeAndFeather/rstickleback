@@ -1,0 +1,27 @@
+url: https://flukeandfeather.github.io/rstickleback/
+reference:
+- title: "Stickleback Models"
+  desc: "Functions for creating and using Stickleback models."
+  contents:
+  - Stickleback
+  - compose_tsc
+  - create_tsc
+  - sb_fit
+  - sb_predict
+  - sb_assess
+- title: "Visualizing Data"
+  desc: "Functions for interactive data visualization."
+  contents:
+  - sb_plot_data
+  - sb_plot_predictions
+- title: "Data and Outputs"
+  desc: "Functions and classes for handling input data and model outputs."
+  contents:
+  - Events
+  - Sensors
+  - Outcomes-class
+  - Predictions-class
+  - columns
+  - deployments
+  - divide
+  - load_lunges

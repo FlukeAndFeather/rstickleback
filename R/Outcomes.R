@@ -16,7 +16,7 @@ setClass(
   slots = c(.data = "list")
 )
 
-#' @rdname show
+#' @noRd
 #' @export
 setMethod("show", "Outcomes", function(object) {
   n_deploy <- length(object@.data)
@@ -42,6 +42,7 @@ setMethod("deployments", "Outcomes", function(object) {
 #'
 #' @return data.frame
 #' @exportS3Method base::as.data.frame
+#' @noRd
 as.data.frame.Outcomes <- function(x, ...) {
   purrr::map2_dfr(names(x@.data), x@.data, function (deployid, out) {
     outcome <- out$values

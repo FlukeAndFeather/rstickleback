@@ -42,7 +42,7 @@ Sensors <- function(sensor_data, deployid_col, datetime_col, sensor_cols) {
                                           sensor_cols))
 }
 
-#' @rdname show
+#' @noRd
 #' @export
 setMethod("show", "Sensors", function(object) {
   n_deploy <- length(deployments(object))
@@ -91,6 +91,7 @@ setMethod("divide", "Sensors", function(object, deployids) {
 #'
 #' @return data.frame
 #' @exportS3Method base::as.data.frame
+#' @noRd
 as.data.frame.Sensors <- function(x, ...) {
   import_sensors_df <- function(df, id) {
     result <- df %>%

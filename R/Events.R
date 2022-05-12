@@ -42,7 +42,7 @@ Events <- function(event_data, deployid_col, datetime_col) {
 #'
 #' @param object Events, Outcomes, Predictions, or Sensors
 #'
-#' @rdname show
+#' @noRd
 #' @export
 setMethod("show", "Events", function(object) {
   n_deploy <- length(object@.data)
@@ -92,6 +92,7 @@ setMethod("divide", "Events", function(object, deployids) {
 #'
 #' @return data.frame
 #' @exportS3Method base::as.data.frame
+#' @noRd
 as.data.frame.Events <- function(x, ...) {
   purrr::map2_dfr(names(x@.data), x@.data, function(deployid, datetimeindex) {
     # Removing dimension fixes array issue with POSIXct and bind_rows
