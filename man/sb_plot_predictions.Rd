@@ -7,14 +7,14 @@
 sb_plot_predictions(deployid, sensors, predictions, outcomes = NULL)
 }
 \arguments{
-\item{deployid}{character(1) Deployment ID.}
+\item{deployid}{\verb{[character(1)]} Deployment ID.}
 
-\item{sensors}{Sensors Sensor data.}
+\item{sensors}{\verb{[Sensors]} Sensor data.}
 
-\item{predictions}{Predictions}
+\item{predictions}{\verb{[Predictions]}}
 
-\item{outcomes}{Outcomes}
+\item{outcomes}{\verb{[Outcomes]}}
 }
 \description{
-Plot Stickleback predictions
+Creates an interactive plotly figure for examining model predictions.
 }

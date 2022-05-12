@@ -2,16 +2,16 @@
 % Please edit documentation in R/plot.R
 \name{sb_plot_data}
 \alias{sb_plot_data}
-\title{Plot Stickleback training data.}
+\title{Plot Stickleback training data}
 \usage{
 sb_plot_data(deployid, sensors, events)
 }
 \arguments{
-\item{deployid}{character(1) Deployment ID.}
+\item{deployid}{\verb{[character(1)]} Deployment ID.}
 
-\item{sensors}{Sensors Sensor data.}
+\item{sensors}{\verb{[Sensors]} Sensor data.}
 
-\item{events}{Events Event data.}
+\item{events}{\verb{[Events]} Event data.}
 }
 \value{
 A plotly figure.

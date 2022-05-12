@@ -1,10 +1,10 @@
-#' Plot Stickleback training data.
+#' Plot Stickleback training data
 #'
 #' Creates an interactive plotly figure for examining sensor and event data.
 #'
-#' @param deployid character(1) Deployment ID.
-#' @param sensors Sensors Sensor data.
-#' @param events Events Event data.
+#' @param deployid `[character(1)]` Deployment ID.
+#' @param sensors `[Sensors]` Sensor data.
+#' @param events `[Events]` Event data.
 #'
 #' @return A plotly figure.
 #' @export
@@ -25,10 +25,12 @@ sb_plot_data <- function(deployid, sensors, events) {
 
 #' Plot Stickleback predictions
 #'
-#' @param deployid character(1) Deployment ID.
-#' @param sensors Sensors Sensor data.
-#' @param predictions Predictions
-#' @param outcomes Outcomes
+#' Creates an interactive plotly figure for examining model predictions.
+#'
+#' @param deployid `[character(1)]` Deployment ID.
+#' @param sensors `[Sensors]` Sensor data.
+#' @param predictions `[Predictions]`
+#' @param outcomes `[Outcomes]`
 #'
 #' @export
 sb_plot_predictions <- function(deployid,
