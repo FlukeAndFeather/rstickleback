@@ -65,7 +65,7 @@ deployid <- deployments(lunge_sensors)[1]
 sb_plot_data(deployid, lunge_sensors, lunge_events)
 ```
 
-![Animated loop of interactively exploring data with sb_plot_data()](inst/img/plot-sensors-events.gif)
+![Animated loop of interactively exploring data with sb_plot_data()](man/figures/plot-sensors-events.gif)
 
 ### Define model
 
@@ -111,4 +111,4 @@ deployid <- deployments(sensors_test)[1]
 sb_plot_predictions(deployid, sensors_test, predictions, outcomes)
 ```
 
-![Animated loop of interactively examining predictions with sb_plot_predictions()](inst/img/plot-predictions.gif)
+![Animated loop of interactively examining predictions with sb_plot_predictions()](man/figures/plot-predictions.gif)

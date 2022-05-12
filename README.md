@@ -65,7 +65,7 @@ sb_plot_data(deployid, lunge_sensors, lunge_events)
 ```
 
 ![Animated loop of interactively exploring data with
-sb\_plot\_data()](inst/img/plot-sensors-events.gif)
+sb\_plot\_data()](man/figures/plot-sensors-events.gif)
 
 ### Define model
 
@@ -105,9 +105,9 @@ outcomes
 #> # A tibble: 3 × 4
 #>   deployid       TP    FP    FN
 #>   <chr>       <int> <int> <int>
-#> 1 bw180905-42    45     8     1
-#> 2 bw180905-49    41     0     3
-#> 3 bw180905-53    25     5     1
+#> 1 bw180905-42    45     7     1
+#> 2 bw180905-49    42     0     2
+#> 3 bw180905-53    26     4     0
 ```
 
 ### Visualize sensor and event data
@@ -121,4 +121,4 @@ sb_plot_predictions(deployid, sensors_test, predictions, outcomes)
 ```
 
 ![Animated loop of interactively examining predictions with
-sb\_plot\_predictions()](inst/img/plot-predictions.gif)
+sb\_plot\_predictions()](man/figures/plot-predictions.gif)
