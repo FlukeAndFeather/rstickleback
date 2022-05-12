@@ -53,7 +53,7 @@ in bio-logging data.</p>
     <h2>Arguments</h2>
     <dl><dt>tsc</dt>
 <dd><p><code>[py:sktime.base.BaseEstimator]</code> A time series classifier created
-with either <code><a href="compose_tsc.html">compose_tsc</a></code> or <code><a href="create_tsc.html">create_tsc</a></code>.</p></dd>
+with either <code><a href="create_tsc.html">compose_tsc</a></code> or <code><a href="create_tsc.html">create_tsc</a></code>.</p></dd>
 <dt>win_size</dt>
 <dd><p><code>[integer(1)]</code> Sliding window size in number of observations.
 E.g., for 10 Hz data and a 5 s sliding window, <code>win_size</code> should be 50.</p></dd>
@@ -72,7 +72,7 @@ accuracy.</p></dd>
 <code>n_folds</code> must be at least 2. Larger <code>n_folds</code> values increase model
 fitting time, but may have greater out-of-sample accuracy.</p></dd>
 <dt>seed</dt>
-<dd><p>seed <code>[integer(1)]</code> Random number seed for model reproducibility.
+<dd><p><code>[integer(1)]</code> Random number seed for model reproducibility.
 CURRENTLY NOT WORKING (see <a href="https://github.com/FlukeAndFeather/rstickleback/issues/6" class="external-link">issue #6</a>).</p></dd>
 </dl></div>
     <div id="details">
@@ -134,7 +134,7 @@ step.</p></dd>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># Load sample data</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">lunge_sensors</span>, <span class="va">lunge_events</span><span class="op">)</span> <span class="op"><a href="multiple-assignment.html">%&lt;-%</a></span> <span class="fu"><a href="load_lunges.html">load_lunges</a></span><span class="op">(</span><span class="op">)</span></span>
 <span class="r-in"><span class="co"># Define a time series classifier</span></span>
-<span class="r-in"><span class="va">tsc</span> <span class="op">&lt;-</span> <span class="fu"><a href="compose_tsc.html">compose_tsc</a></span><span class="op">(</span>module <span class="op">=</span> <span class="st">"interval_based"</span>,</span>
+<span class="r-in"><span class="va">tsc</span> <span class="op">&lt;-</span> <span class="fu"><a href="create_tsc.html">compose_tsc</a></span><span class="op">(</span>module <span class="op">=</span> <span class="st">"interval_based"</span>,</span>
 <span class="r-in">                   algorithm <span class="op">=</span> <span class="st">"SupervisedTimeSeriesForest"</span>,</span>
 <span class="r-in">                   params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>n_estimators <span class="op">=</span> <span class="fl">2L</span>, random_state <span class="op">=</span> <span class="fl">4321L</span><span class="op">)</span>,</span>
 <span class="r-in">                   columns <span class="op">=</span> <span class="fu"><a href="accessors.html">columns</a></span><span class="op">(</span><span class="va">lunge_sensors</span><span class="op">)</span><span class="op">)</span></span>

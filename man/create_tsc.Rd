@@ -2,22 +2,44 @@
 % Please edit documentation in R/tsc.R
 \name{create_tsc}
 \alias{create_tsc}
-\title{Create a time series classification model.}
+\alias{compose_tsc}
+\title{Create a time series classification model}
 \usage{
 create_tsc(module, algorithm, params)
+
+compose_tsc(module, algorithm, params, columns)
 }
 \arguments{
-\item{module}{[character(1)] Name of module in sktime.classification, e.g.
-"interval_based".}
+\item{module}{\verb{[character(1)]} Name of module in
+\href{https://www.sktime.org/en/stable/api_reference/classification.html}{sktime.classification},
+e.g. "interval_based".}
 
-\item{algorithm}{[character(1)] Name of time series classification algorithm.}
+\item{algorithm}{\verb{[character(1)]} Name of time series classification
+algorithm, e.g. "SupervisedTimeSeriesForest".}
 
-\item{params}{[list] Hyperparameters to algorithm.}
+\item{params}{\verb{[list]} Hyperparameters for algorithm, e.g. number of
+estimators.}
+
+\item{columns}{\verb{[character(1)]} Names of columns for composition
+(\code{compose_tsc} only).}
 }
 \value{
-A time series classification model, for use in fitting a Stickleback
-object.
+\verb{[py:sktime.base.BaseEstimator]} A time series classification model
+(see \code{\link{Stickleback}}).
 }
 \description{
-Create a time series classification model.
+Time series classification algorithms are not widely available in R, so
+Stickleback interfaces with a Python package (sktime). These helper functions
+define time series classification models using the sktime package. Use
+\code{create_tsc} for univariate bio-logging data and \code{compose_tsc} for
+multivariate.
+}
+\examples{
+# Load sample data
+c(lunge_sensors, lunge_events) \%<-\% load_lunges()
+# Define a time series classifier
+tsc <- compose_tsc(module = "interval_based",
+                   algorithm = "SupervisedTimeSeriesForest",
+                   params = list(n_estimators = 2L, random_state = 4321L),
+                   columns = columns(lunge_sensors))
 }

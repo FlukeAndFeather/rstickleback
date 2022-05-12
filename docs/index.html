@@ -117,7 +117,7 @@
 </h3>
 <p>Initialize a <code>Stickleback</code> model using Supervised Time Series Forests and a 5 s window.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">tsc</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/compose_tsc.html">compose_tsc</a></span><span class="op">(</span>module <span class="op">=</span> <span class="st">"interval_based"</span>, 
+<code class="sourceCode R"><span class="va">tsc</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/create_tsc.html">compose_tsc</a></span><span class="op">(</span>module <span class="op">=</span> <span class="st">"interval_based"</span>, 
                    algorithm <span class="op">=</span> <span class="st">"SupervisedTimeSeriesForest"</span>,
                    params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>n_estimators <span class="op">=</span> <span class="fl">2L</span>, random_state <span class="op">=</span> <span class="fl">4321L</span><span class="op">)</span>,
                    columns <span class="op">=</span> <span class="fu"><a href="reference/accessors.html">columns</a></span><span class="op">(</span><span class="va">lunge_sensors</span><span class="op">)</span><span class="op">)</span>
