@@ -113,9 +113,37 @@ Stickleback <- function(tsc, win_size, tol, nth = 1, n_folds = 4, seed = NULL) {
 
 #' Fit a Stickleback model
 #'
-#' @param sb Stickleback
-#' @param sensors Sensors
-#' @param events Events
+#' @param sb `[Stickleback]` A Stickleback model (see \code{\link{Stickleback}})
+#' @param sensors `[Sensors]` Bio-logging sensor data (see
+#'   \code{\link{Sensors}})
+#' @param events `[Events]` Labeled behavioral events (see \code{\link{Events}})
+#'
+#' @return `sb_fit` trains the Stickleback model `sb` on the data in `sensors`
+#'   and `events`, returning `NULL`.
+#'
+#' @examples
+#' # Load sample data and split test/train
+#' c(lunge_sensors, lunge_events) %<-% load_lunges()
+#' test_deployids <- deployments(lunge_sensors)[1:3]
+#' c(sensors_test, sensors_train) %<-% divide(lunge_sensors, test_deployids)
+#' c(events_test, events_train) %<-% divide(lunge_events, test_deployids)
+#'
+#' # Define a time series classifier
+#' tsc <- compose_tsc(module = "interval_based",
+#'                    algorithm = "SupervisedTimeSeriesForest",
+#'                    params = list(n_estimators = 2L, random_state = 4321L),
+#'                    columns = columns(lunge_sensors))
+#'
+#' # Define a Stickleback model
+#' sb <- Stickleback(tsc,
+#'                   win_size = 50,
+#'                   tol = 5,
+#'                   nth = 10,
+#'                   n_folds = 4,
+#'                   seed = 1234)
+#'
+#' # Fit the model to the sample data
+#' sb_fit(sb, sensors_train, events_train)
 #'
 #' @export
 sb_fit <- function(sb, sensors, events) {
@@ -125,10 +153,11 @@ sb_fit <- function(sb, sensors, events) {
   invisible(sb@.stickleback$fit(sensors@.data, events@.data))
 }
 
-#' Predict with a Stickleback model
+#' Make predictions with a Stickleback model
 #'
-#' @param sb Stickleback
-#' @param sensors Sensors
+#' @param sb `[Stickleback]` A Stickleback model (see \code{\link{Stickleback}})
+#' @param sensors `[Sensors]` Bio-logging sensor data (see
+#'   \code{\link{Sensors}})
 #'
 #' @export
 sb_predict <- function(sb, sensors) {
