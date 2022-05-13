@@ -14,6 +14,10 @@ sb_fit(sb, sensors, events)
 
 \item{events}{\verb{[Events]} Labeled behavioral events (see \code{\link{Events}})}
 }
+\value{
+\code{sb_fit} trains the Stickleback model \code{sb} on the data in \code{sensors}
+and \code{events}, returning \code{NULL}.
+}
 \description{
 Fit a Stickleback model
 }
