@@ -50,13 +50,45 @@
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>sb</dt>
-<dd><p>Stickleback</p></dd>
+<dd><p><code>[Stickleback]</code> A Stickleback model (see <code><a href="Stickleback.html">Stickleback</a></code>)</p></dd>
 <dt>sensors</dt>
-<dd><p>Sensors</p></dd>
+<dd><p><code>[Sensors]</code> Bio-logging sensor data (see
+<code><a href="Sensors.html">Sensors</a></code>)</p></dd>
 <dt>events</dt>
-<dd><p>Events</p></dd>
+<dd><p><code>[Events]</code> Labeled behavioral events (see <code><a href="Events.html">Events</a></code>)</p></dd>
 </dl></div>
+    <div id="value">
+    <h2>Value</h2>
+    <p><code>sb_fit</code> trains the Stickleback model <code>sb</code> on the data in <code>sensors</code>and <code>events</code>, returning <code>NULL</code>.</p>
+    </div>
 
+    <div id="ref-examples">
+    <h2>Examples</h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># Load sample data and split test/train</span></span>
+<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">lunge_sensors</span>, <span class="va">lunge_events</span><span class="op">)</span> <span class="op"><a href="multiple-assignment.html">%&lt;-%</a></span> <span class="fu"><a href="load_lunges.html">load_lunges</a></span><span class="op">(</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">test_deployids</span> <span class="op">&lt;-</span> <span class="fu"><a href="accessors.html">deployments</a></span><span class="op">(</span><span class="va">lunge_sensors</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span></span>
+<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">sensors_test</span>, <span class="va">sensors_train</span><span class="op">)</span> <span class="op"><a href="multiple-assignment.html">%&lt;-%</a></span> <span class="fu"><a href="divide.html">divide</a></span><span class="op">(</span><span class="va">lunge_sensors</span>, <span class="va">test_deployids</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">events_test</span>, <span class="va">events_train</span><span class="op">)</span> <span class="op"><a href="multiple-assignment.html">%&lt;-%</a></span> <span class="fu"><a href="divide.html">divide</a></span><span class="op">(</span><span class="va">lunge_events</span>, <span class="va">test_deployids</span><span class="op">)</span></span>
+<span class="r-in"></span>
+<span class="r-in"><span class="co"># Define a time series classifier</span></span>
+<span class="r-in"><span class="va">tsc</span> <span class="op">&lt;-</span> <span class="fu"><a href="create_tsc.html">compose_tsc</a></span><span class="op">(</span>module <span class="op">=</span> <span class="st">"interval_based"</span>,</span>
+<span class="r-in">                   algorithm <span class="op">=</span> <span class="st">"SupervisedTimeSeriesForest"</span>,</span>
+<span class="r-in">                   params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>n_estimators <span class="op">=</span> <span class="fl">2L</span>, random_state <span class="op">=</span> <span class="fl">4321L</span><span class="op">)</span>,</span>
+<span class="r-in">                   columns <span class="op">=</span> <span class="fu"><a href="accessors.html">columns</a></span><span class="op">(</span><span class="va">lunge_sensors</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"></span>
+<span class="r-in"><span class="co"># Define a Stickleback model</span></span>
+<span class="r-in"><span class="va">sb</span> <span class="op">&lt;-</span> <span class="fu"><a href="Stickleback.html">Stickleback</a></span><span class="op">(</span><span class="va">tsc</span>,</span>
+<span class="r-in">                  win_size <span class="op">=</span> <span class="fl">50</span>,</span>
+<span class="r-in">                  tol <span class="op">=</span> <span class="fl">5</span>,</span>
+<span class="r-in">                  nth <span class="op">=</span> <span class="fl">10</span>,</span>
+<span class="r-in">                  n_folds <span class="op">=</span> <span class="fl">4</span>,</span>
+<span class="r-in">                  seed <span class="op">=</span> <span class="fl">1234</span><span class="op">)</span></span>
+<span class="r-in"></span>
+<span class="r-in"><span class="co"># Fit the model to the sample data</span></span>
+<span class="r-in"><span class="fu">sb_fit</span><span class="op">(</span><span class="va">sb</span>, <span class="va">sensors_train</span>, <span class="va">events_train</span><span class="op">)</span></span>
+<span class="r-in"></span>
+</code></pre></div>
+    </div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top"><h2 data-toc-skip>Contents</h2>
