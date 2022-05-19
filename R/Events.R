@@ -5,7 +5,7 @@ NULL
 #'
 #' Class representation for labeled behavioral events in bio-logging data.
 #'
-#' Create an Events object with Events().
+#' Create an Events object with `Events`().
 #'
 #' @slot .data A list of Pandas DatetimeIndexes.
 #'
@@ -15,10 +15,23 @@ setClass(
   slots = c(.data = "list")
 )
 
-#' @param event_data a data frame. Must have columns for deployment ID and event
-#'   datetimes (POSIXct).
-#' @param deployid_col character(1). Name of column with deployment ID.
-#' @param datetime_col character(1). Name of column with event datetimes.
+#' @param event_data `[data.frame]`. A two-column data frame with bio-logger
+#'   deployment IDs in one column and event datetimes in the other. The event
+#'   datetimes must be `POSIXct`.
+#' @param deployid_col `[character(1)]`. The name of the column in `event_data`
+#'   containing deployment IDs.
+#' @param datetime_col `[character(1)]`. The name of the column in `event_data`
+#'   with event datetimes.
+#'
+#' @examples
+#' # Pretend we have behavioral event data for two dogs that like to bark at a
+#' # clock tower
+#' barking_df <- data.frame(
+#'   dogs = rep(c("A", "B", each = 4)),
+#'   barktime = as.POSIXct("2000-01-01 06:00") + lubridate::hours(0:7)
+#' )
+#' barking_df
+#' Events(barking_df, "dogs", "barktime")
 #'
 #' @export
 #' @rdname Events

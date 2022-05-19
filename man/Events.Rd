@@ -9,18 +9,21 @@
 Events(event_data, deployid_col, datetime_col)
 }
 \arguments{
-\item{event_data}{a data frame. Must have columns for deployment ID and event
-datetimes (POSIXct).}
+\item{event_data}{\verb{[data.frame]}. A two-column data frame with bio-logger
+deployment IDs in one column and event datetimes in the other. The event
+datetimes must be \code{POSIXct}.}
 
-\item{deployid_col}{character(1). Name of column with deployment ID.}
+\item{deployid_col}{\verb{[character(1)]}. The name of the column in \code{event_data}
+containing deployment IDs.}
 
-\item{datetime_col}{character(1). Name of column with event datetimes.}
+\item{datetime_col}{\verb{[character(1)]}. The name of the column in \code{event_data}
+with event datetimes.}
 }
 \description{
 Class representation for labeled behavioral events in bio-logging data.
 }
 \details{
-Create an Events object with Events().
+Create an Events object with \code{Events}().
 }
 \section{Slots}{
 
@@ -28,3 +31,14 @@ Create an Events object with Events().
 \item{\code{.data}}{A list of Pandas DatetimeIndexes.}
 }}
 
+\examples{
+# Pretend we have behavioral event data for two dogs that like to bark at a
+# clock tower
+barking_df <- data.frame(
+  dogs = rep(c("A", "B", each = 4)),
+  barktime = as.POSIXct("2000-01-01 06:00") + lubridate::hours(0:7)
+)
+barking_df
+Events(barking_df, "dogs", "barktime")
+
+}
