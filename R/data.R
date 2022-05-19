@@ -13,10 +13,16 @@ load_lunges <- function() {
   # datetimeindex_to_isoformat() as a workaround first, before calling
   # py_to_r().
   import_sensors <- function(df) {
-    result <- df %>%
-      .sbenv$util$datetimeindex_to_isoformat()
-    # Revert conversion to local timezone
+    result <- .sbenv$util$datetimeindex_to_isoformat(df)
+    # Revert reticulate's automatic conversion to local timezone
     result$datetime <- lubridate::with_tz(result$datetime, "UTC")
+    result
+  }
+
+  # Workaround for issue 27
+  import_events <- function(dt) {
+    result <- .sbenv$util$datetimeindex_values(dt)
+    dim(result) <- NULL
     result
   }
 
@@ -24,11 +30,8 @@ load_lunges <- function() {
     purrr::map2_dfr(names(.), ~ dplyr::mutate(.x, deployid = .y)) %>%
     Sensors("deployid", "datetime", c("depth", "pitch", "roll", "speed"))
 
-  lunge_events <- purrr::map(lunge_data[[2]], "values") %>%
-    purrr::map2_dfr(names(.), function(dt, id) {
-      dim(dt) <- NULL
-      data.frame(datetime = dt, deployid = id)
-    }) %>%
+  lunge_events <- purrr::map(lunge_data[[2]], import_events) %>%
+    purrr::map2_dfr(names(.), ~ data.frame(datetime = .x, deployid = .y)) %>%
     Events("deployid", "datetime")
 
   list(sensors = lunge_sensors,

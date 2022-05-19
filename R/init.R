@@ -17,8 +17,8 @@
     .sbenv$sb_util <- reticulate::import("stickleback.util",
                                          delay_load = TRUE)
     .sbenv$sb_viz <- reticulate::import("stickleback.visualize",
-                                        convert = FALSE,
-                                        delay_load = TRUE)
+                                        delay_load = TRUE,
+                                        convert = FALSE)
 
     # Import utility functions
     util_path <- system.file("python", package = "rstickleback")

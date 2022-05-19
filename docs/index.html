@@ -104,10 +104,10 @@
 <div class="section level3">
 <h3 id="visualize-sensor-and-event-data">Visualize sensor and event data<a class="anchor" aria-label="anchor" href="#visualize-sensor-and-event-data"></a>
 </h3>
-<p><code><a href="reference/sb_plot_data.html">sb_plot_data()</a></code> produces an interactive figure for exploring bio-logger data.</p>
+<p><code><a href="reference/sb_plot.html">sb_plot_data()</a></code> produces an interactive figure for exploring bio-logger data.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">deployid</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/accessors.html">deployments</a></span><span class="op">(</span><span class="va">lunge_sensors</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>
-<span class="fu"><a href="reference/sb_plot_data.html">sb_plot_data</a></span><span class="op">(</span><span class="va">deployid</span>, <span class="va">lunge_sensors</span>, <span class="va">lunge_events</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="reference/sb_plot.html">sb_plot_data</a></span><span class="op">(</span><span class="va">deployid</span>, <span class="va">lunge_sensors</span>, <span class="va">lunge_events</span><span class="op">)</span></code></pre></div>
 <div class="figure">
 <img src="reference/figures/plot-sensors-events.gif" alt=""><p class="caption">Animated loop of interactively exploring data with sb_plot_data()</p>
 </div>
@@ -154,10 +154,10 @@
 <div class="section level3">
 <h3 id="visualize-sensor-and-event-data-1">Visualize sensor and event data<a class="anchor" aria-label="anchor" href="#visualize-sensor-and-event-data-1"></a>
 </h3>
-<p><code><a href="reference/sb_plot_predictions.html">sb_plot_predictions()</a></code> produces an interactive figure for exploring model predictions.</p>
+<p><code><a href="reference/sb_plot.html">sb_plot_predictions()</a></code> produces an interactive figure for exploring model predictions.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">deployid</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/accessors.html">deployments</a></span><span class="op">(</span><span class="va">sensors_test</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>
-<span class="fu"><a href="reference/sb_plot_predictions.html">sb_plot_predictions</a></span><span class="op">(</span><span class="va">deployid</span>, <span class="va">sensors_test</span>, <span class="va">predictions</span>, <span class="va">outcomes</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="reference/sb_plot.html">sb_plot_predictions</a></span><span class="op">(</span><span class="va">deployid</span>, <span class="va">sensors_test</span>, <span class="va">predictions</span>, <span class="va">outcomes</span><span class="op">)</span></code></pre></div>
 <div class="figure">
 <img src="reference/figures/plot-predictions.gif" alt=""><p class="caption">Animated loop of interactively examining predictions with sb_plot_predictions()</p>
 </div>

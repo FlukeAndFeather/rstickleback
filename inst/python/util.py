@@ -68,10 +68,25 @@ def datetimeindex_to_isoformat(df):
   Returns:
     As df, but times from index in a column (ISO format).
   """
-  df.index = df.index.tz_localize("UTC")
+  if df.index.tzinfo is not None:
+    df.index = df.index.tz_localize("UTC")
+    
   return (df
           .reset_index()
           .rename(columns={'index':'datetime'}))
+          
+def datetimeindex_values(dt):
+  """Get values from DatetimeIndex
+  
+  This is a workaround for issue 27
+  
+  Args:
+    dt (DatetimeIndex): A DatetimeIndex
+    
+  Returns:
+    The values of the DatetimeIndex
+  """
+  return dt.values
           
 def plotly_to_json(fig):
   return json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)

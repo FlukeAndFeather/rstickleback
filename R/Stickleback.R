@@ -203,11 +203,57 @@ sb_predict <- function(sb, sensors) {
 
 #' Assess Stickleback predictions
 #'
-#' @param sb Stickleback
-#' @param predicted Predictions
-#' @param events Events
+#' Stickleback supports a temporal tolerance when assessing prediction accuracy,
+#' which complicates standard assessments like confusion matrices. Here, a true
+#' positive is defined as "a predicted event closest in time to a true event
+#' within the temporal tolerance". As an example, consider a Stickleback model
+#' with a 5 s tolerance. If there's a true event at 12:00:00 and predicted
+#' events at 12:00:01, 12:00:04, and 12:00:10, then 12:00:01 is a true positive
+#' (closest and within tolerance), but 12:00:04 (within tolerance, but not
+#' closest) and 12:00:10 are false positives (outside tolerance).
 #'
-#' @return Outcomes
+#' @param sb `[Stickleback]` A Stickleback model (see \code{\link{Stickleback}})
+#' @param predicted `[Predictions]` Stickleback model predictions (see
+#'   \code{\link{sb_predict}})
+#' @param events `[Events]` Labeled behavioral events (see \code{\link{Events}})
+#'
+#' @return `[Outcomes]` The outcomes (true positive, false positive, or false
+#'   negative) of the predictions `predicted` compared to known events `events`
+#'   according to the temporal tolerance specified in the Stickleback model
+#'   `sb`. Printing an `Outcomes` object displays the outcome count by
+#'   deployment (see Examples).
+#'
+#' @seealso \code{\link{sb_plot_predictions}}
+#'
+#' @examples
+#' # Load sample data and split test/train
+#' c(lunge_sensors, lunge_events) %<-% load_lunges()
+#' test_deployids <- deployments(lunge_sensors)[1:3]
+#' c(sensors_test, sensors_train) %<-% divide(lunge_sensors, test_deployids)
+#' c(events_test, events_train) %<-% divide(lunge_events, test_deployids)
+#'
+#' # Define a time series classifier
+#' tsc <- compose_tsc(module = "interval_based",
+#'                    algorithm = "SupervisedTimeSeriesForest",
+#'                    params = list(n_estimators = 2L, random_state = 4321L),
+#'                    columns = columns(lunge_sensors))
+#'
+#' # Define a Stickleback model
+#' sb <- Stickleback(tsc,
+#'                   win_size = 50,
+#'                   tol = 5,
+#'                   nth = 10,
+#'                   n_folds = 4,
+#'                   seed = 1234)
+#'
+#' # Fit the model to the training data and make predictions on the test data
+#' sb_fit(sb, sensors_train, events_train)
+#' predictions <- sb_predict(sb, sensors_test)
+#'
+#' # Assess prediction accuracy
+#' outcomes <- sb_assess(sb, predictions, events_test)
+#' outcomes
+#'
 #' @export
 sb_assess <- function(sb, predicted, events) {
   stopifnot(inherits(sb, "Stickleback"),
