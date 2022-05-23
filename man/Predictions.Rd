@@ -5,15 +5,16 @@
 \alias{Predictions-class}
 \title{Predictions class}
 \description{
-Class representation for event predictions.
-}
-\details{
-Users should not create Predictions objects directly. They're the return type
-of sb_predict().
+Class representation for Stickleback predictions. \code{Predictions} objects are
+created by \code{\link{sb_predict}}. You shouldn't create \code{Predictions}
+objects directly.
 }
 \section{Slots}{
 
 \describe{
-\item{\code{.data}}{A list of tuples (Series, DatetimeIndex).}
+\item{\code{.data}}{A list of tuples (Pandas Series, Pandas DatetimeIndex).}
 }}
 
+\seealso{
+\code{\link{sb_predict}}, \code{\link{sb_plot_predictions}}
+}

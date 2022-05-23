@@ -3,9 +3,10 @@ NULL
 
 #' Outcomes class
 #'
-#' Class representation for prediction outcomes. Outcome objects are created by
-#' \code{\link{sb_assess}}. They hold information about the outcomes (true
-#' positive, false positive, false negative) of Stickleback predictions.
+#' Class representation for prediction outcomes. `Outcomes` objects are created
+#' by \code{\link{sb_assess}}. They hold information about the outcomes (true
+#' positive, false positive, false negative) of Stickleback predictions. You
+#' shouldn't create `Outcomes` objects directly.
 #'
 #' @slot .data A list of Pandas Series.
 #'

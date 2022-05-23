@@ -5,9 +5,10 @@
 \alias{Outcomes-class}
 \title{Outcomes class}
 \description{
-Class representation for prediction outcomes. Outcome objects are created by
-\code{\link{sb_assess}}. They hold information about the outcomes (true
-positive, false positive, false negative) of Stickleback predictions.
+Class representation for prediction outcomes. \code{Outcomes} objects are created
+by \code{\link{sb_assess}}. They hold information about the outcomes (true
+positive, false positive, false negative) of Stickleback predictions. You
+shouldn't create \code{Outcomes} objects directly.
 }
 \section{Slots}{
 

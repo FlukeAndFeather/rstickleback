@@ -3,12 +3,13 @@ NULL
 
 #' Predictions class
 #'
-#' Class representation for event predictions.
+#' Class representation for Stickleback predictions. `Predictions` objects are
+#' created by \code{\link{sb_predict}}. You shouldn't create `Predictions`
+#' objects directly.
 #'
-#' Users should not create Predictions objects directly. They're the return type
-#' of sb_predict().
+#' @slot .data A list of tuples (Pandas Series, Pandas DatetimeIndex).
 #'
-#' @slot .data A list of tuples (Series, DatetimeIndex).
+#' @seealso \code{\link{sb_predict}}, \code{\link{sb_plot_predictions}}
 #'
 #' @rdname Predictions
 setClass(

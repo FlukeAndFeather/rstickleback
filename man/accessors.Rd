@@ -29,10 +29,24 @@ deployments(object)
 \item{object}{The object to access}
 }
 \value{
-\itemize{ \item \code{columns()}: a list of columns in sensor data
-(Sensors only). \item \code{deployments()}: a list of deployment IDs. }
+\subsection{\code{columns}}{
+
+A list of columns of bio-logging sensor data (e.g. pitch or overall dynamic
+body acceleration) in \code{object}. Applicable to \code{Sensors} only.
+}
+
+\subsection{\code{deployments}}{
+
+A list of bio-logger deployments in \code{objects}.
+}
 }
 \description{
-Access information from Events, Outcomes, Predictions, and
-Sensors objects.
+Access deployment and other information from \code{Events},
+\code{Outcomes}, \code{Predictions}, and \code{Sensors} objects.
+}
+\examples{
+c(lunge_sensors, lunge_events) \%<-\% load_lunges()
+columns(lunge_sensors)
+deployments(lunge_events)
+
 }
