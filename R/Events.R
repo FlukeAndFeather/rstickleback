@@ -75,14 +75,27 @@ setMethod("deployments", "Events", function(object) {
 
 #' Divide Events/Sensors objects by deployment IDs
 #'
-#' Useful for dividing into test-train sets.
+#' Useful for dividing bio-logging sensor data (`Sensors`) and behavioral event
+#' data (`Events`) into test-train sets.
 #'
-#' @param object Events/Sensors
-#' @param deployids Vector of deployment IDs
+#' @param object `[Events/Sensors]` An \code{\link{Events}} or
+#'   \code{\link{Sensors}} object.
+#' @param deployids `[character]` The deployment IDs to divide on. Each ID must
+#'   be a deployment in `object`. Deployments with IDs in `deployids` will end
+#'   up in one `Events/Sensors` object, the remaining deployments will be in
+#'   another.
 #'
-#' @return a list of two Events/Sensors objects. The first element contains the
-#'   deployments with IDs in deployids, the second element contains the
-#'   remainder.
+#' @return `[list(Events/Sensors)]` A list of two `Events`/`Sensors` objects.
+#'   The first list element contains the deployments with IDs in `deployids`,
+#'   the second element contains the remainder.
+#'
+#' @examples
+#' c(lunge_sensors, lunge_events) %<-% load_lunges()
+#' divided_sensors <- divide(lunge_sensors, "bw180905-53")
+#' # A Sensors object with *only* deployment "bw180905-53"
+#' deployments(divided_sensors[[1]])
+#' # A Sensors object with the remaining five deployments
+#' deployments(divided_sensors[[2]])
 #'
 #' @export
 #' @rdname divide
