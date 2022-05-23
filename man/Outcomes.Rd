@@ -5,15 +5,16 @@
 \alias{Outcomes-class}
 \title{Outcomes class}
 \description{
-Class representation for prediction outcomes.
-}
-\details{
-Users should not create Outcomes objects directly. They're the return type
-of sb_assess().
+Class representation for prediction outcomes. Outcome objects are created by
+\code{\link{sb_assess}}. They hold information about the outcomes (true
+positive, false positive, false negative) of Stickleback predictions.
 }
 \section{Slots}{
 
 \describe{
-\item{\code{.data}}{A list of Series.}
+\item{\code{.data}}{A list of Pandas Series.}
 }}
 
+\seealso{
+\code{\link{sb_assess}}
+}
