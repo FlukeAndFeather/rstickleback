@@ -1,8 +1,57 @@
 #' Load sample data: blue whale lunge-feeding
 #'
-#' @return A list with elements `sensors` (list of data frames containing sensor
-#'   data, named by deployment ID) and `events` (list of labeled events, also
-#'   named by deployment ID).
+#' These sample data are provided to gain familiarity with Stickleback
+#' functionality. They contain bio-logging sensor data and labeled behavioral
+#' events for six feeding blue whales.
+#'
+#' Blue whales (*Balaenoptera musculus*) prey on krill schools using a behavior
+#' called "lunge feeding". Lunges have a stereotypical kinematic signature that
+#' makes them readily identifiable in bio-logging sensor data. First, the animal
+#' accelerates from about 2 to 4-5 m/s, then it opens its mouth and decelerates
+#' to almost a complete stop (<1 m/s). Blue whales usually lunge from below, so
+#' the pitch is often positive (~30-45 deg) and sometimes they roll on their
+#' side (~90 deg) or even do a barrel roll (0-360 deg). See [Cade et al.
+#' (2016)](https://doi.org/10.1016/j.cub.2016.07.037), [Goldbogen et al.
+#' (2006)](https://doi.org/10.1242/jeb.02135), and [Goldbogen et al.
+#' (2017)](https://doi.org/10.1146/annurev-marine-122414-033905) for more
+#' details.
+#'
+#' The bio-logging sensor data made available by `load_lunges` contains 1.5 - 2
+#' hour records from six blue whales tagged on September 4th and 5th, 2018. The
+#' 11.5 hours of data include 218 lunge feeding events, and were previously
+#' published by [Goldbogen et al.
+#' (2019)](https://doi.org/10.1126/science.aax9044).
+#'
+#' The examples in \code{\link{sb_plot_data}}, \code{\link{sb_fit}},
+#' \code{\link{sb_predict}}, and \code{\link{sb_assess}} show how to use these
+#' sample data.
+#'
+#' @references
+#'
+#' Cade, D. E., Friedlaender, A. S., Calambokidis, J., & Goldbogen, J. A.
+#' (2016). Kinematic diversity in rorqual whale feeding mechanisms. *Current
+#' Biology, 26*(19), 2617-2624.
+#'
+#' Goldbogen, J. A., Calambokidis, J., Shadwick, R. E., Oleson, E. M., McDonald,
+#' M. A., & Hildebrand, J. A. (2006). Kinematics of foraging dives and
+#' lunge-feeding in fin whales. *Journal of Experimental Biology, 209*(7),
+#' 1231-1244.
+#'
+#' Goldbogen, J. A., Cade, D. E., Calambokidis, J., Friedlaender, A. S., Potvin,
+#' J., Segre, P. S., & Werth, A. J. (2017). How baleen whales feed: the
+#' biomechanics of engulfment and filtration. *Annual Review of Marine Science,
+#' 9*, 367-386.
+#'
+#' Goldbogen, J. A., Cade, D. E., Wisniewska, D. M., Potvin, J., Segre, P. S.,
+#' Savoca, M. S., ... & Pyenson, N. D. (2019). Why whales are big but not
+#' bigger: Physiological drivers and ecological limits in the age of ocean
+#' giants. *Science, 366*(6471), 1367-1372.
+#'
+#' @return `[list(Sensors, Events)]` A list with two named elements. `sensors`
+#'   is a \code{\link{Sensors}} object with bio-logging sensor data collected
+#'   from feeding blue whales and `events` is an \code{\link{Events}} object
+#'   with the times of feeding events.
+#'
 #' @export
 load_lunges <- function() {
   lunge_data <- .sbenv$sb_data$load_lunges()
@@ -36,56 +85,4 @@ load_lunges <- function() {
 
   list(sensors = lunge_sensors,
        events = lunge_events)
-}
-
-#' Load a pre-fitted Stickleback model and associated data.
-#'
-#' For internal use only. See also fitted_model.R.
-#'
-#' @return List with elements:
-#'   * $stickleback [Stickleback] fitted Stickleback object
-#'   * $sensors_train [Sensors] sensor data used for training
-#'   * $events_train [Events] events data used for training
-#'   * $sensors_test [Sensors] sensor data used for testing
-#'   * $events_test [Events] events data used for testing
-#'   * $predictions [Predictions] predicted events
-#'   * $outcomes [Outcomes] prediction outcomes
-#' @noRd
-load_fitted <- function(data_loc) {
-  # Load pickled data
-  load_py <- function(pkl_name) {
-    reticulate::py_load_object(file.path(data_loc, pkl_name))
-  }
-  sb_py <- load_py("prefitted.pkl")
-  tsc_py <- load_py("prefitted_tsc.pkl")
-  sensors_train_py <- load_py("prefitted_trainX.pkl")
-  events_train_py <- load_py("prefitted_trainy.pkl")
-  sensors_test_py <- load_py("prefitted_testX.pkl")
-  events_test_py <- load_py("prefitted_testy.pkl")
-  predictions_py <- load_py("prefitted_pred.pkl")
-  outcomes_py <- load_py("prefitted_outcome.pkl")
-
-  # Convert to R S4 objects
-  sb <- new("Stickleback",
-            local_clf = tsc_py,
-            win_size = sb_py$win_size,
-            tol = sb_py$tol$total_seconds(),
-            .stickleback = sb_py)
-
-  new_instance <- function(class, data_obj) { new(class, .data = data_obj) }
-  sensors_train <- new_instance("Sensors", sensors_train_py)
-  events_train <- new_instance("Events", events_train_py)
-  sensors_test <- new_instance("Sensors", sensors_test_py)
-  events_test <- new_instance("Events", events_test_py)
-  predictions <- new_instance("Predictions", predictions_py)
-  outcomes <- new_instance("Outcomes", outcomes_py)
-
-  # Return
-  list(stickleback = sb,
-       sensors_train = sensors_train,
-       events_train = events_train,
-       sensors_test = sensors_test,
-       events_test = events_test,
-       predictions = predictions,
-       outcomes = outcomes)
 }

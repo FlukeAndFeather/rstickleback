@@ -2,7 +2,7 @@ pandoc: 2.11.4
 pkgdown: 2.0.3
 pkgdown_sha: ~
 articles: {}
-last_built: 2022-05-23T17:25Z
+last_built: 2022-05-23T17:49Z
 urls:
   reference: https://flukeandfeather.github.io/rstickleback/reference
   article: https://flukeandfeather.github.io/rstickleback/articles
