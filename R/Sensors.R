@@ -15,11 +15,26 @@ setClass(
   slots = c(.data = "list")
 )
 
-#' @param sensor_data a data frame. Must have columns for deployment ID and
-#'   datetime (POSIXct).
-#' @param deployid_col character(1). Name of column with deployment ID.
-#' @param datetime_col character(1). Name of column with event datetimes.
-#' @param sensor_cols character. Names of columns containing sensor data.
+#' @param sensor_data `[data.frame]` A data frame containing one or more
+#'   bio-logging sensor time series (e.g. pitch or overall dynamic body
+#'   acceleration). Must have columns for deployment ID and datetime (POSIXct).
+#' @param deployid_col `[character(1)]` Name of the column in `sensor_data` with
+#'   the bio-logger deployment IDs.
+#' @param datetime_col `[character(1)]` Name of the column in `sensor_data` with
+#'   datetimes of records.
+#' @param sensor_cols `[character]` Names of the columns in `sensor_data`
+#'   containing sensor data.
+#'
+#' @examples
+#' # Pretend we have bio-logging sensor data for two dogs
+#' dogs_df <- data.frame(
+#'   dogs = rep(c("A", "B"), each = 100),
+#'   dogtime = rep(as.POSIXct("2000-01-01 06:00") + 1:100, 2),
+#'   pitch = rep(90 * sin(seq(0, 20 * pi, length.out = 100))),
+#'   odba = rep(90 * sin(seq(0, 20 * pi, length.out = 100)))^2
+#' )
+#' head(dogs_df)
+#' Sensors(dogs_df, "dogs", "dogtime", c("pitch", "odba"))
 #'
 #' @export
 #' @rdname Sensors
