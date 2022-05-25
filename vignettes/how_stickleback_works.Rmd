@@ -55,8 +55,10 @@ The global step as described uses the same data to train $M$ and select $\hat{r}
 
 Undersampling the majority class (`non-event`) can lead to increased false positives. These false positives are "near misses", where the animal's movement was similar enough to the behavior of interest to fool the time series classifier, $M$. These windows of time contain important information for differentiating between `event` and `non-event` windows, and are valuable for training $M$, but `stickleback` cannot know when they are *a priori*. Therefore, in the boosting step, all windows centered on the false positive predictions are added to $D_L$, the training data set for $M$. Then the local and global steps are repeated.
 
-# Example
+# In code
 
-```{r setup}
-library(rstickleback)
-```
+Use `Stickleback()` to define the model. The argument `tsc` (Time Series Classifier) corresponds to $M$. Use `compose_tsc()` or `create_tsc()` to define `tsc`. Arguments `win_size`, `tol`, and `n_folds` correspond to $w$, $\epsilon$, and $f$, respectively. `nth` modifies how the global step generates $p_l$. If `nth = 2`, for example, then $p_l$ is evaluated for every other window. Gaps are filled with cubic spline interpolation.
+
+`sb_fit()` runs all three steps in the method: local, global, and boosting. 
+
+# References

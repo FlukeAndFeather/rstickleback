@@ -119,10 +119,14 @@
 </div>
 </div>
 <div class="section level2">
-<h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
+<h2 id="in-code">In code<a class="anchor" aria-label="anchor" href="#in-code"></a>
 </h2>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">rstickleback</span><span class="op">)</span></code></pre></div>
+<p>Use <code><a href="../reference/Stickleback.html">Stickleback()</a></code> to define the model. The argument <code>tsc</code> (Time Series Classifier) corresponds to <span class="math inline">\(M\)</span>. Use <code><a href="../reference/create_tsc.html">compose_tsc()</a></code> or <code><a href="../reference/create_tsc.html">create_tsc()</a></code> to define <code>tsc</code>. Arguments <code>win_size</code>, <code>tol</code>, and <code>n_folds</code> correspond to <span class="math inline">\(w\)</span>, <span class="math inline">\(\epsilon\)</span>, and <span class="math inline">\(f\)</span>, respectively. <code>nth</code> modifies how the global step generates <span class="math inline">\(p_l\)</span>. If <code>nth = 2</code>, for example, then <span class="math inline">\(p_l\)</span> is evaluated for every other window. Gaps are filled with cubic spline interpolation.</p>
+<p><code><a href="../reference/sb_fit.html">sb_fit()</a></code> runs all three steps in the method: local, global, and boosting.</p>
+</div>
+<div class="section level2">
+<h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+</h2>
 <div id="refs" class="references csl-bib-body hanging-indent">
 <div id="ref-bagnall2017" class="csl-entry">
 Bagnall, Anthony, Jason Lines, Aaron Bostrom, James Large, and Eamonn Keogh. 2017. <span>“The Great Time Series Classification Bake Off: A Review and Experimental Evaluation of Recent Algorithmic Advances.”</span> <em>Data Mining and Knowledge Discovery</em> 31 (3): 606–60. <a href="https://doi.org/10.1007/s10618-016-0483-9" class="external-link">https://doi.org/10.1007/s10618-016-0483-9</a>.
