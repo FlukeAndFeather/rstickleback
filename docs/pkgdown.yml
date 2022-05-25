@@ -1,8 +1,9 @@
 pandoc: 2.11.4
-pkgdown: 2.0.3
-pkgdown_sha: ~
-articles: {}
-last_built: 2022-05-23T17:49Z
+pkgdown: 2.0.3.9000
+pkgdown_sha: 9dee019f9983b86585a77a3b1a1459b9f0390fe6
+articles:
+  how_stickleback_works: how_stickleback_works.html
+last_built: 2022-05-25T17:42Z
 urls:
   reference: https://flukeandfeather.github.io/rstickleback/reference
   article: https://flukeandfeather.github.io/rstickleback/articles
