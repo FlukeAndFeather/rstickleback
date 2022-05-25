@@ -25,3 +25,11 @@ reference:
   - deployments
   - divide
   - load_lunges
+navbar:
+  structure:
+    left:  [reference, howsbworks]
+    right: [seach, github]
+  components:
+    howsbworks:
+      text: "How Stickleback works"
+      href: articles/how_stickleback_works.html
