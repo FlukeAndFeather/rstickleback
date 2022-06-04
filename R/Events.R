@@ -27,7 +27,7 @@ setClass(
 #' # Pretend we have behavioral event data for two dogs that like to bark at a
 #' # clock tower
 #' barking_df <- data.frame(
-#'   dogs = rep(c("A", "B", each = 4)),
+#'   dogs = rep(c("A", "B"), each = 4),
 #'   barktime = as.POSIXct("2000-01-01 06:00") + lubridate::hours(0:7)
 #' )
 #' barking_df
