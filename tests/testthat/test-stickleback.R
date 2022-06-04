@@ -51,14 +51,3 @@ test_that("prediction throws no errors", {
 test_that("assessment throws no errors", {
   expect_error(outcomes <<- sb_assess(sb, predictions, events_test), NA)
 })
-
-test_that("predictions and outcomes match snapshots", {
-  withr::with_options(list(max.print = 50),
-                      expect_snapshot_output(predictions))
-  withr::with_options(list(max.print = 50),
-                      expect_snapshot_output(outcomes))
-  withr::with_options(list(max.print = 50),
-                      expect_snapshot_output(as.data.frame(predictions)))
-  withr::with_options(list(max.print = 50),
-                      expect_snapshot_output(as.data.frame(outcomes)))
-})
