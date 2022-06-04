@@ -10,7 +10,7 @@ Authors@R:
 Description: Stickleback is a machine-learning pipeline for using time
     series classification algorithms to detect fine-scale behavioral
     events in longitudinal bio-logging data. rstickleback is an R
-    interface for using the Stickleback Python package.
+    interface for using the stickleback Python package.
 License: MIT + file LICENSE
 Imports: 
     dplyr,
@@ -23,7 +23,7 @@ Imports:
     reticulate,
     zeallot
 Config/reticulate: list( packages = list( list(package = "stickleback",
-    version = "0.1.5", pip = TRUE) ) )
+    version = "0.1.6", pip = TRUE) ) )
 Encoding: UTF-8
 Language: es
 LazyData: true
