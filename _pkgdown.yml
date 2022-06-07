@@ -27,9 +27,12 @@ reference:
   - load_lunges
 navbar:
   structure:
-    left:  [reference, howsbworks]
+    left:  [reference, howsbworks, sbdata]
     right: [seach, github]
   components:
     howsbworks:
       text: "How Stickleback works"
       href: articles/how_stickleback_works.html
+    sbdata:
+      text: "Preparing your data"
+      href: articles/preparing-data.html

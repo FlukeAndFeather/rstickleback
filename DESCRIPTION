@@ -47,7 +47,9 @@ Suggests:
     knitr,
     testthat (>= 3.0.0),
     covr,
-    withr
+    withr,
+    tidyverse,
+    fs
 VignetteBuilder: knitr
 Config/testthat/edition: 3
 Depends: 
