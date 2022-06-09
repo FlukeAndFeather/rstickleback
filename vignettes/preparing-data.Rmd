@@ -26,7 +26,7 @@ library(tidyverse)
 
 ## Starting from data files
 
-The [bluewhaledata](http://github.com/flukeandfeather/bluwhaledata) repository on GitHub has a zipped archive with the same sample data as this package, only in CSV form. The archive contains two directories, sensors and events, with CSV files containing bio-logging sensor data and behavioral event timestamps, respectively. For more details about how the data were collected and what they represent, see `load_lunges()`. 
+The [bluewhaledata](https://github.com/flukeandfeather/bluewhaledata) repository on GitHub has a zipped archive with the same sample data as this package, only in CSV form. The archive contains two directories, sensors and events, with CSV files containing bio-logging sensor data and behavioral event timestamps, respectively. For more details about how the data were collected and what they represent, see `load_lunges()`. 
 
 You can download the data directly in R.
 
