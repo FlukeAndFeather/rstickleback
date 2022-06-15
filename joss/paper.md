@@ -20,7 +20,7 @@ affiliations:
    index: 1
  - name: Department of Electrical Engineering, Stanford University, USA
    index: 2
-date: 10 June 202022
+date: 15 June 202022
 bibliography: references.bib
 ---
 
@@ -76,6 +76,6 @@ In `rstickleback`, use `Stickleback()` to define a model. The argument `tsc` (Ti
 
 # Acknowledgements
 
-Both authors were partially supported by Data Science Scholar fellowships from the Stanford Data Science Institute. We thank Nicole Nova and Salma Abdel-Raheem for their input and feedback on the Stickleback method.
+Both authors were partially supported by Stanford Data Science Scholar fellowships. We thank Nicole Nova and Salma Abdel-Raheem for their input and feedback on the Stickleback method.
 
 # References
