@@ -76,4 +76,6 @@ In `rstickleback`, use `Stickleback()` to define a model. The argument `tsc` (Ti
 
 # Acknowledgements
 
+Both authors were partially supported by Data Science Scholar fellowships from the Stanford Data Science Institute. We thank Nicole Nova and Salma Abdel-Raheem for their input and feedback on the Stickleback method.
+
 # References
