@@ -10,17 +10,17 @@ tags:
   - time series annotation
 authors:
   - name: Max F. Czapanskiy
-    orcid: 0000-0000-0000-0000
+    orcid: 0000-0002-6302-905X
     affiliation: 1
   - name: Ariana Mann
-    orcid: 
+    orcid: 0000-0002-3981-527X
     affiliation: 2
 affiliations:
  - name: Department of Biology, Stanford University, USA
    index: 1
  - name: Department of Electrical Engineering, Stanford University, USA
    index: 2
-date: 15 June 2022
+date: 16 June 2022
 bibliography: references.bib
 ---
 
